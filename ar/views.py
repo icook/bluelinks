@@ -6,7 +6,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
 from flask.ext.login import login_required, logout_user, login_user
 
 from . import root, db, lm
-from .models import User
+from .models import User, Subreddit
 
 
 main = Blueprint('main', __name__)
@@ -26,6 +26,13 @@ def profile(username):
     return render_template('profile.html', user=obj)
 
 
+@main.route("/r/<subreddit>")
+@login_required
+def subreddit(name):
+    sub = Subreddit.query.filter_by(name=name).first()
+    return render_template('subreddit.html', subreddit=sub)
+
+
 @main.route("/account")
 @login_required
 def account():
@@ -34,7 +41,8 @@ def account():
 
 @main.route("/")
 def home():
-    return render_template('home.html')
+    subreddits = Subreddit.query
+    return render_template('home.html', subreddits=subreddits)
 
 
 @main.route("/logout")

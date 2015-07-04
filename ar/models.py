@@ -1,5 +1,6 @@
 import datetime
 
+from sqlalchemy.orm import remote, foreign
 from flask.ext.security import UserMixin, RoleMixin
 from .model_lib import base
 from . import db
@@ -40,3 +41,38 @@ class User(base, UserMixin):
 
     def get_id(self):
         return str(self.id)
+
+
+class Subreddit(base):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=True)
+
+
+class Post(base):
+    id = db.Column(db.Integer, primary_key=True)
+    # Either url or text, not both...
+    url = db.Column(db.String)
+    text = db.Column(db.Unicode)
+    title = db.Column(db.Unicode)
+
+    subreddit_id = db.Column(db.ForeignKey('subreddit.id'))
+    subreddit = db.relationship('Subreddit', backref='posts')
+
+    user_id = db.Column(db.ForeignKey('user.id'))
+    user = db.relationship('User', backref='posts')
+
+
+class Comment(base):
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String, unique=True)
+    text = db.Column(db.Unicode())
+    score = db.Column(db.Integer)
+
+    user_id = db.Column(db.ForeignKey('user.id'))
+    user = db.relationship('User', backref='comments')
+
+    subcomments = db.relationship(
+        'Comment',
+        primaryjoin=remote(foreign(path)).like(path.concat('/%')),
+        viewonly=True,
+        order_by=path)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "_macros.html" import render_form %}
+{% set active_page = "subreddit" %}
+{% set page_title = subreddit.name %}
+{% block body_w_flash %}
+<h1>{{ subreddit.name }}</h1>
+{% foreach post in subreddit.post %}
+<a href="{{ post.url }}">{{ post.title }}</a>
+{% endfor %}
+{% endblock %}
