@@ -19,6 +19,13 @@ def favicon():
         'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
+@main.route("/u/<username>")
+@login_required
+def profile(username):
+    obj = User.query.filter_by(username=username).first()
+    return render_template('profile.html', user=obj)
+
+
 @main.route("/account")
 @login_required
 def account():

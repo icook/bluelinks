@@ -38,7 +38,8 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             {% if current_user.is_authenticated() %}
-            <li data-toggle="tooltip" data-placement="bottom" title="Profile"><a href="/profile"><i class="fa-nav fa fa-user fa-2"></i></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Account"><a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Profile"><a href="/u/{{ current_user.username }}"><i class="fa-nav fa fa-user fa-2"></i></a></li>
             <li data-toggle="tooltip" data-placement="bottom" title="Sign Out"><a href="/logout"><i class="fa-nav fa fa-sign-out"></i></a></li>
             {% else %}
             <li><a href="/login">Login</a></li>

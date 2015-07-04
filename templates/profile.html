@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "_macros.html" import render_form %}
+{% set active_page = "profile" %}
+{% set page_title = "Profile" %}
+{% block body_w_flash %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>{{ user.username }}'s Profile</h1>
+      <h3>Hmm.... Nothing here...</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}
