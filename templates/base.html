@@ -1,0 +1,62 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="og:image" content="{{ config['assets_address'] | safe }}{{ config['leader-xs'] | safe }}">
+  <title>Skeleton</title>
+  <meta name="description" content="A custom mining pool with no registration and a focus on developing new tools for miners">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  {% assets "bootstrap_all" %}
+  <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
+  {% endassets %}
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+  <script src="{{ config['assets_address'] | safe }}/js/jquery-2.1.0.min.js"></script>
+  <script>window.jQuery || document.write('<script src="//code.jquery.com/jquery-2.1.0.min.js"><\/script>')</script>
+  <script src="{{ config['assets_address'] | safe }}/js/bootstrap.min.js"></Script>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+   <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            Skeleton
+          </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated() %}
+            <li data-toggle="tooltip" data-placement="bottom" title="Profile"><a href="/profile"><i class="fa-nav fa fa-user fa-2"></i></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Sign Out"><a href="/logout"><i class="fa-nav fa fa-sign-out"></i></a></li>
+            {% else %}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  {% block body %}
+    {% include "_flash.html" %}
+    {% block body_w_flash %}
+    {% endblock %}
+  {% endblock %}
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+</body>
+</html>

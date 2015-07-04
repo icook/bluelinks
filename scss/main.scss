@@ -1,0 +1,18 @@
+body {
+  padding-top: 50px;
+}
+
+.fa.fa-nav {
+  padding: 0px;
+  font-size: 18px;
+}
+
+
+$navbar-default-color:                     #000;
+$navbar-default-link-color:                #000;
+$navbar-default-link-hover-color:          #4183c4;
+$navbar-default-brand-hover-color:         $navbar-default-link-hover-color;
+$navbar-height:                            45px;
+
+@import "bootstrap";
+@import "font-awesome";

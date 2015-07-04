@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set active_page = "home" %}
+{% set page_title = "Home" %}
+{% block body %}
+<div class="jumbotron jumbotron-ad hidden-print">
+  <div class="container">
+    {% include "_flash.html" %}
+    <i class="fa fa-bullhorn fa-5x"></i>
+    <p class="lead">Skeleton is awesome and will change the world!</p>
+  </div>
+</div>
+{% endblock %}
