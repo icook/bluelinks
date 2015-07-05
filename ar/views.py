@@ -2,7 +2,7 @@ import os
 import sqlalchemy
 
 from flask import (render_template, Blueprint, send_from_directory, request,
-                   url_for, redirect, current_app)
+                   g, url_for, redirect, current_app)
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
 from . import root, db, lm
@@ -11,6 +11,11 @@ from .models import User, Subreddit, Post
 
 
 main = Blueprint('main', __name__)
+
+
+@main.before_request
+def add_globals():
+    g.subreddits = Subreddit.query.all()
 
 
 @main.route('/favicon.ico')
@@ -65,8 +70,7 @@ def account():
 
 @main.route("/")
 def home():
-    subreddits = Subreddit.query
-    return render_template('home.html', subreddits=subreddits)
+    return render_template('home.html')
 
 
 @main.route("/logout")

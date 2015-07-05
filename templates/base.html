@@ -51,7 +51,7 @@
               My Subreddits <i class="fa fa-angle-down"></i>
             </a>
           </li>
-          {% for sub in subreddits %}
+          {% for sub in g.subreddits %}
             <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
           {% endfor %}
         </ul>
