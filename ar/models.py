@@ -2,6 +2,7 @@ import datetime
 
 from sqlalchemy.orm import remote, foreign
 from flask.ext.security import UserMixin, RoleMixin
+from flask import url_for
 from .model_lib import base
 from . import db
 
@@ -60,6 +61,16 @@ class Post(base):
 
     user_id = db.Column(db.ForeignKey('user.id'))
     user = db.relationship('User', backref='posts')
+
+    @property
+    def display_url(self):
+        if self.url:
+            return self.url
+        return self.comments_url
+
+    @property
+    def comments_url(self):
+        return url_for('main.post', name=self.subreddit.name, post_id=self.id)
 
 
 class Comment(base):
