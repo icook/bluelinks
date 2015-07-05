@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% set active_page = "post" %}
+{% set page_title = post.title %}
+{% block body_w_flash %}
+<h1>
+  {% if post.url %}
+  <a href="{{ post.url }}">{{ post.title }}</a>
+  {% else %}
+  {{ post.title }}
+  {% endif %}
+</h1>
+{% if post.contents %}
+<div class="well well-sm">
+  {{ post.contents }}
+</div>
+{% endif %}
+{% endblock %}

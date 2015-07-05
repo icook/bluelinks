@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "_macros.html" import render_form %}
+{% set active_page = "submit" %}
+{% set page_title = "Make a post" %}
+{% block body_w_flash %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>Submit a post</h1>
+      {{ render_form(form) }}
+    </div>
+  </div>
+</div>
+{% endblock %}

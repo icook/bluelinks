@@ -53,7 +53,7 @@ class Post(base):
     # Either url or text, not both...
     url = db.Column(db.String)
     text = db.Column(db.Unicode)
-    title = db.Column(db.Unicode)
+    title = db.Column(db.Unicode, nullable=False)
 
     subreddit_id = db.Column(db.ForeignKey('subreddit.id'))
     subreddit = db.relationship('Subreddit', backref='posts')
