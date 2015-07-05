@@ -7,6 +7,10 @@ body {
   font-size: 18px;
 }
 
+.navbar-nav.navbar-right > li {
+  float: right;
+}
+
 $navbar-default-color:                     #000;
 $navbar-default-link-color:                #000;
 $navbar-default-link-hover-color:          #4183c4;
