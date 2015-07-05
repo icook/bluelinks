@@ -28,11 +28,33 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">
-          Skeleton
-        </a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-subreddits">
+          Subreddits <i class="fa fa-angle-down"></i>
+        </button>
+      </div>
+      <div class="navbar-collapse-subreddits collapse">
+        <ul class="nav navbar-nav navbar-collapse-subreddits">
+          <li>
+            <a id="my-subreddits" href="/">
+              My Subreddits <i class="fa fa-angle-down"></i>
+            </a>
+          </li>
+          {% for sub in subreddits %}
+            <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
+          {% endfor %}
+        </ul>
       </div>
       <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-collapse-subreddits">
+          <li>
+            <a id="my-subreddits" href="/">
+              My Subreddits <i class="fa fa-angle-down"></i>
+            </a>
+          </li>
+          {% for sub in subreddits %}
+            <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
+          {% endfor %}
+        </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if current_user.is_authenticated() %}
           <li data-toggle="tooltip" data-placement="bottom" title="Account"><a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a></li>
