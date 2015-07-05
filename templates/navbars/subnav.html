@@ -1,11 +1,14 @@
 <div class="navbar-subnav">
-  <p class="navbar-text"><a href="#" class="navbar-link">Almost Reddit</a></p>
-  <ul class="nav navbar-nav">
-    {% if sub %}
-    <li>
-      <a href="/r/{{ sub }}"> {{ sub }}
-      </a>
-    </li>
-    {% endif %}
-  </ul>
+  <p class="navbar-text">
+    <a href="#" class="navbar-link">
+      <i class="fa fa-reddit"></i>
+      Almost Reddit
+    </a>
+  </p>
+  {% if sub %}
+    <a class="navbar-link subreddit-title" href="/r/{{ sub }}"> /r/{{ sub }}</a>
+  {% endif %}
+  <button type="button" class="btn btn-default navbar-btn active">Best</button>
+  <button type="button" class="btn btn-default navbar-btn">Top</button>
+  <button type="button" class="btn btn-default navbar-btn">Trending</button>
 </div>

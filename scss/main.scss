@@ -12,8 +12,17 @@ body {
 }
 
 .navbar-subnav {
+  padding-top:3px;
   background-color: #CEE3F8;
   min-height: 50px;
+}
+
+.subreddit-title {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 $navbar-default-color:                     #000;
