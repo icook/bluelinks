@@ -11,6 +11,7 @@ from flask.ext.assets import Environment, Bundle
 from flask.ext.security import Security, SQLAlchemyUserDatastore
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.admin import Admin
+from flask.ext.redis import FlaskRedis
 from flask_mail import Mail
 from jinja2 import FileSystemLoader
 
@@ -22,6 +23,7 @@ assets = Environment()
 security = Security()
 mail = Mail()
 admin = Admin()
+redis_store = FlaskRedis()
 
 
 def create_app(config='/config.yml', log_level='INFO'):
@@ -67,7 +69,12 @@ def create_app(config='/config.yml', log_level='INFO'):
     lm.init_app(app)
     admin.init_app(app)
     mail.init_app(app)
-    from . import models, forms
+    redis_store.init_app(app)
+
+
+    from . import models, forms, lua_redis
+    redis_store.vote_cmd = redis_store.register_script(lua_redis.vote)
+
     user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
     security.init_app(app, user_datastore, confirm_register_form=forms.ExtendedRegisterForm)
     assets.init_app(app)
@@ -95,8 +102,9 @@ def create_app(config='/config.yml', log_level='INFO'):
 
     # Route registration
     # =========================================================================
-    from . import views, models
+    from . import views, models, api
     app.register_blueprint(views.main)
+    app.register_blueprint(api.api_bp, url_prefix='/api')
 
     admin.add_view(ModelView(models.Subreddit, db.session))
     admin.add_view(ModelView(models.Comment, db.session))

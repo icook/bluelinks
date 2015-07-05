@@ -2,9 +2,10 @@ import datetime
 
 from sqlalchemy.orm import remote, foreign
 from flask.ext.security import UserMixin, RoleMixin
+from flask.ext.login import current_user
 from flask import url_for
 from .model_lib import base
-from . import db
+from . import db, redis_store
 
 
 roles_users = db.Table('roles_users',
@@ -69,8 +70,15 @@ class Post(base):
         return self.comments_url
 
     @property
+    def score(self):
+        return redis_store.hget("p{}".format(self.id), "score") or 0
+
+    @property
     def comments_url(self):
         return url_for('main.post', name=self.subreddit.name, post_id=self.id)
+
+    def vote(self, direction):
+        redis_store.vote_cmd(keys=(), args=("p{}".format(self.id), current_user.id, int(direction == "up")))
 
 
 class Comment(base):
