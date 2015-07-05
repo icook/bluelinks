@@ -1,0 +1,42 @@
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse"
+          data-target=".navbar-user">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <button type="button" class="navbar-toggle" data-toggle="collapse"
+          data-target=".navbar-subreddits">
+    Subreddits <i class="fa fa-angle-down"></i>
+  </button>
+</div>
+<div class="navbar-collapse collapse" style="border-bottom:1px solid black;">
+  <ul class="nav navbar-nav navbar-subreddits col-lg-10">
+    <li>
+      <a id="my-subreddits" href="/">
+        My Subreddits <i class="fa fa-angle-down"></i>
+      </a>
+    </li>
+    {% for sub in g.subreddits %}
+      <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
+    {% endfor %}
+  </ul>
+  <ul class="nav navbar-nav navbar-user navbar-right col-lg-2 pull-right">
+    {% if current_user.is_authenticated() %}
+      <li data-toggle="tooltip" data-placement="bottom" title="Sign Out">
+        <a href="/logout"><i class="fa-nav fa fa-sign-out"></i></a>
+      </li>
+      <li data-toggle="tooltip" data-placement="bottom" title="Account">
+        <a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a>
+      </li>
+      <li data-toggle="tooltip" data-placement="bottom" title="Profile">
+        <a href="/u/{{ current_user.username }}">
+          <i class="fa-nav fa fa-user fa-2"></i>
+        </a>
+      </li>
+    {% else %}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+    {% endif %}
+  </ul>
+</div><!--/.nav-collapse -->
