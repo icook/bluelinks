@@ -14,5 +14,13 @@ $navbar-default-link-hover-color:          #4183c4;
 $navbar-default-brand-hover-color:         $navbar-default-link-hover-color;
 $navbar-height:                            45px;
 
+.vote.up.enabled {
+  color: green;
+}
+
+.vote.down.enabled {
+  color: orange;
+}
+
 @import "bootstrap";
 @import "font-awesome";
