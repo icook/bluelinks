@@ -35,7 +35,7 @@
           Subreddits <i class="fa fa-angle-down"></i>
         </button>
       </div>
-      <div class="navbar-collapse collapse">
+      <div class="navbar-collapse collapse" style="border-bottom:1px solid black;">
         <ul class="nav navbar-nav navbar-subreddits col-lg-10">
           <li>
             <a id="my-subreddits" href="/">
@@ -65,6 +65,8 @@
           {% endif %}
         </ul>
       </div><!--/.nav-collapse -->
+      {% set sub = subreddit.name if subreddit %}
+      {% include "navbars/subnav.html" %}
     </div>
   {% block body %}
     {% include "_flash.html" %}
