@@ -1,0 +1,8 @@
+{% if current_user.is_authenticated() %}
+  {% set v_stat = post.vote_status() %}
+  <i data-dir="up" data-id="{{ post.id }}" class="fa fa-arrow-up vote up {% if v_stat %}enabled{%endif%}"></i>
+  <br>
+  <i data-dir="down" data-id="{{ post.id }}" class="fa fa-arrow-down vote down {% if not v_stat %}enabled{% endif %}"></i>
+{% else %}
+  <a data-dir="up" href="/login" class="fa fa-arrow-up"></a><br><a href="/login" data-dir="down" class="fa fa-arrow-down"></a>
+{% endif %}
