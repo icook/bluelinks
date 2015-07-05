@@ -45,7 +45,7 @@
         </ul>
       </div>
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-collapse-subreddits">
+        <ul class="nav navbar-nav navbar-collapse-subreddits col-sm-11">
           <li>
             <a id="my-subreddits" href="/">
               My Subreddits <i class="fa fa-angle-down"></i>
@@ -55,7 +55,7 @@
             <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
           {% endfor %}
         </ul>
-        <ul class="nav navbar-nav navbar-right" id="user-nav">
+        <ul class="nav navbar-nav navbar-right col-sm-1 pull-right">
           {% if current_user.is_authenticated() %}
           <li data-toggle="tooltip" data-placement="bottom" title="Account"><a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a></li>
           <li data-toggle="tooltip" data-placement="bottom" title="Profile"><a href="/u/{{ current_user.username }}"><i class="fa-nav fa fa-user fa-2"></i></a></li>
