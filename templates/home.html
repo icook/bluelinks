@@ -2,10 +2,4 @@
 {% set active_page = "home" %}
 {% set page_title = "Home" %}
 {% block body %}
-<h2>Subreddits</h2>
-<ul>
-  {% for sub in subreddits %}
-  <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
-  {% endfor %}
-</ul>
 {% endblock %}
