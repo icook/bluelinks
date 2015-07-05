@@ -82,7 +82,7 @@ class Post(base):
         return "p{}".format(self.id)
 
     def vote_status(self):
-        return int(redis_store.hget(self.redis_key, current_user.id))
+        return int(redis_store.hget(self.redis_key, current_user.id) or 2)
 
     def vote(self, direction):
         redis_store.vote_cmd(keys=(), args=(self.redis_key, current_user.id, int(direction == "up")))
