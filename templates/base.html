@@ -55,7 +55,7 @@
             <li><a href="/r/{{ sub.name }}">{{ sub.name }}</a></li>
           {% endfor %}
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" id="user-nav">
           {% if current_user.is_authenticated() %}
           <li data-toggle="tooltip" data-placement="bottom" title="Account"><a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a></li>
           <li data-toggle="tooltip" data-placement="bottom" title="Profile"><a href="/u/{{ current_user.username }}"><i class="fa-nav fa fa-user fa-2"></i></a></li>
