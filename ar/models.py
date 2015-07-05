@@ -71,14 +71,21 @@ class Post(base):
 
     @property
     def score(self):
-        return redis_store.hget("p{}".format(self.id), "score") or 0
+        return redis_store.hget(self.redis_key, "score") or 0
 
     @property
     def comments_url(self):
         return url_for('main.post', name=self.subreddit.name, post_id=self.id)
 
+    @property
+    def redis_key(self):
+        return "p{}".format(self.id)
+
+    def vote_status(self):
+        return int(redis_store.hget(self.redis_key, current_user.id))
+
     def vote(self, direction):
-        redis_store.vote_cmd(keys=(), args=("p{}".format(self.id), current_user.id, int(direction == "up")))
+        redis_store.vote_cmd(keys=(), args=(self.redis_key, current_user.id, int(direction == "up")))
 
 
 class Comment(base):
