@@ -9,6 +9,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.assets import Environment, Bundle
 from flask.ext.security import Security, SQLAlchemyUserDatastore
+from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.admin import Admin
 from flask_mail import Mail
 from jinja2 import FileSystemLoader
 
@@ -19,6 +21,7 @@ db = SQLAlchemy()
 assets = Environment()
 security = Security()
 mail = Mail()
+admin = Admin()
 
 
 def create_app(config='/config.yml', log_level='INFO'):
@@ -62,6 +65,7 @@ def create_app(config='/config.yml', log_level='INFO'):
     # register all our plugins
     db.init_app(app)
     lm.init_app(app)
+    admin.init_app(app)
     mail.init_app(app)
     from . import models, forms
     user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
@@ -91,7 +95,11 @@ def create_app(config='/config.yml', log_level='INFO'):
 
     # Route registration
     # =========================================================================
-    from . import views
+    from . import views, models
     app.register_blueprint(views.main)
+
+    admin.add_view(ModelView(models.Subreddit, db.session))
+    admin.add_view(ModelView(models.Comment, db.session))
+    admin.add_view(ModelView(models.Post, db.session))
 
     return app
