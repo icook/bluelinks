@@ -3,8 +3,20 @@
 {% set active_page = "subreddit" %}
 {% set page_title = subreddit.name %}
 {% block body_w_flash %}
-<h1>{{ subreddit.name }}</h1>
-{% foreach post in subreddit.post %}
-<a href="{{ post.url }}">{{ post.title }}</a>
-{% endfor %}
+<div class="col-md-8">
+  <h1>{{ subreddit.name }}</h1>
+  {% if subreddit.post %}
+  <ul>
+    {% for post in subreddit.post %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <b>No one has posted anything yet!</b>
+  {% endif %}
+</div>
+<div class="col-md-4" style="border-left: 1px solid #999;">
+  <br />
+  <a href="/submit/{{ subreddit.name }}">Submit a new post</a>
+</div>
 {% endblock %}

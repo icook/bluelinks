@@ -20,14 +20,12 @@ def favicon():
 
 
 @main.route("/u/<username>")
-@login_required
 def profile(username):
     obj = User.query.filter_by(username=username).first()
     return render_template('profile.html', user=obj)
 
 
-@main.route("/r/<subreddit>")
-@login_required
+@main.route("/r/<name>")
 def subreddit(name):
     sub = Subreddit.query.filter_by(name=name).first()
     return render_template('subreddit.html', subreddit=sub)
