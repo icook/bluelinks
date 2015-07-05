@@ -9,7 +9,8 @@
   {% assets "bootstrap_all" %}
     <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
   {% endassets %}
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900'
+        rel='stylesheet' type='text/css'>
   <script src="{{ config['assets_address'] | safe }}/js/jquery-2.1.0.min.js"></script>
   <script>window.jQuery || document.write('<script src="//code.jquery.com/jquery-2.1.0.min.js"><\/script>')</script>
   <script src="{{ config['assets_address'] | safe }}/js/bootstrap.min-3.3.5.js"></Script>
@@ -20,15 +21,17 @@
     <![endif]-->
 </head>
 <body>
-   <!-- Fixed navbar -->
+    <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-user">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-user">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-subreddits">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-subreddits">
           Subreddits <i class="fa fa-angle-down"></i>
         </button>
       </div>
@@ -45,9 +48,17 @@
         </ul>
         <ul class="nav navbar-nav navbar-user navbar-right col-lg-2 pull-right">
           {% if current_user.is_authenticated() %}
-            <li data-toggle="tooltip" data-placement="bottom" title="Sign Out"><a href="/logout"><i class="fa-nav fa fa-sign-out"></i></a></li>
-            <li data-toggle="tooltip" data-placement="bottom" title="Account"><a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a></li>
-            <li data-toggle="tooltip" data-placement="bottom" title="Profile"><a href="/u/{{ current_user.username }}"><i class="fa-nav fa fa-user fa-2"></i></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Sign Out">
+              <a href="/logout"><i class="fa-nav fa fa-sign-out"></i></a>
+            </li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Account">
+              <a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a>
+            </li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Profile">
+              <a href="/u/{{ current_user.username }}">
+                <i class="fa-nav fa fa-user fa-2"></i>
+              </a>
+            </li>
           {% else %}
             <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
