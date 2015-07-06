@@ -37,6 +37,7 @@
     {{ comment.text }}
     <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>
     {% if comment.children %}
+    {% set _ = comment.children.sort(key=sort_comments, reverse=True) %}
     {{ loop(comment.children) }}
     {% endif %}
   </div>

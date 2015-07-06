@@ -5,7 +5,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
                    g, url_for, redirect, current_app)
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
-from . import root, db, lm
+from . import root, db, lm, redis_store
 from .forms import SubmissionForm, CreateSubredditForm
 from .models import User, Subreddit, Post
 
@@ -29,8 +29,12 @@ def favicon():
 def post(name, post_id):
     post = Post.query.filter_by(id=post_id).one()
 
+    scores = {int(a): b for a, b in
+              redis_store.zrange("pc{}".format(post.id), 0, -1, withscores=True)}
     nested = []
     last_obj = None
+    def sort_comments(obj):
+        return obj.score_val
     for comment in post.comments:
         # Bubble back up until we find the parent of this comment
         while last_obj is not None and not comment.path.startswith(last_obj.path):
@@ -46,9 +50,10 @@ def post(name, post_id):
             comment.parent = last_obj
         last_obj = comment
         last_obj.children = []
+        last_obj.score_val = scores[comment.id]
 
     sub = Subreddit.query.filter_by(name=name).first()
-    return render_template('post.html', post=post, comments=nested, subreddit=sub)
+    return render_template('post.html', post=post, comments=nested, subreddit=sub, sort_comments=sort_comments)
 
 
 @main.route("/u/<username>")
