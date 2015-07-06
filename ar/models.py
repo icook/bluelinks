@@ -90,8 +90,11 @@ class Post(base):
 class Comment(base):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String, unique=True)
-    text = db.Column(db.Unicode())
+    text = db.Column(db.Unicode, nullable=False)
     score = db.Column(db.Integer)
+
+    post_id = db.Column(db.ForeignKey('post.id'))
+    post = db.relationship('Post', backref='comments')
 
     user_id = db.Column(db.ForeignKey('user.id'))
     user = db.relationship('User', backref='comments')
