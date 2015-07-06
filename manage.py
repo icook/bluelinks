@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -10,11 +11,11 @@ migrate = Migrate(app, db)
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')
 
-from ar.models import User
+from ar.models import User, Role
 from flask import current_app, _request_ctx_stack
 
 
-@manager.option('-g', '--generate', default=False, action='store_true',
+@manager.option('-g', '--generate', default=True, action='store_true',
                 help='makes a user account when regenerating')
 def init_db(generate=False):
     """ Resets entire database to empty state """
@@ -23,10 +24,17 @@ def init_db(generate=False):
         db.drop_all()
         db.create_all()
         if generate:
+            r = Role(name='admin', description='access to flask-admin')
+            db.session.add(r)
+
             u = User(email='admin')
             u.password = 'testing'
+            u.active = True
+            u.confirmed_at = datetime.datetime.utcnow()
+            u.roles.append(r)
             db.session.add(u)
             db.session.commit()
+            print("Made an admin with username 'admin' and password 'testing'")
 
 
 def make_context():
