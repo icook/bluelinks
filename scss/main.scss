@@ -85,6 +85,15 @@ ul.navbar-user {
   border-color: #0068B0;
 }
 
+.sidebar {
+  border-left: 1px solid #999;
+  padding: 20px 10px;
+}
+
+.bodypanel {
+  padding: 20px 10px;
+}
+
 $navbar-default-color:                     #000;
 $navbar-default-link-color:                #000;
 $navbar-default-link-hover-color:          #4183c4;

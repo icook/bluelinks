@@ -32,14 +32,18 @@
   {% endblock %}
   <!-- Main panel content -->
   {% block body %}
-    {% include "_flash.html" %}
-    {% block body_w_flash %}
-    {% endblock %}
+    <div class="col-sm-9 bodypanel">
+      {% include "_flash.html" %}
+      {% block body_w_flash %}
+      {% endblock %}
+    </div>
   {% endblock %}
   <!-- Side panel content -->
   {% block sidebar %}
-    {% set subreddit = subreddit %}
-    {% include "sidebar.html" %}
+    <div class="col-sm-3 sidebar">
+      {% set subreddit = subreddit %}
+      {% include "sidebar.html" %}
+    </div>
   {% endblock %}
   <script>
     $(function () {

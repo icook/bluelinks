@@ -1,6 +1,3 @@
-<div class="col-md-4" style="border-left: 1px solid #999;">
-  <br />
-  {% if subreddit %}
-  <a href="/submit/{{ subreddit.name }}">Submit a new post</a>
-  {% endif %}
-</div>
+{% if subreddit %}
+<a href="/submit/{{ subreddit.name }}">Submit a new post</a>
+{% endif %}
