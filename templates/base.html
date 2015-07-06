@@ -22,36 +22,44 @@
     <![endif]-->
 </head>
 <body>
-  <!-- Top navbars -->
-  {% block topnav %}
-    <div class="navbar navbar-default navbar-fixed-top">
-      {% include "navbars/subreddit-navbar.html" %}
-      {% set sub = subreddit.name if subreddit %}
-      {% include "navbars/subnav.html" %}
-    </div>
-  {% endblock %}
-  <!-- Main panel content -->
-  {% block body %}
-    <div class="col-sm-9 bodypanel">
-      {% include "_flash.html" %}
-      {% block body_w_flash %}
+  <div id="full-wrapper">
+    <div id="navbar-wrapper">
+      <!-- Top navbars -->
+      {% block topnav %}
+        <div class="navbar-default navbar-static-top">
+          {% include "navbars/subreddit-navbar.html" %}
+          {% set sub = subreddit.name if subreddit %}
+          {% include "navbars/subnav.html" %}
+        </div>
       {% endblock %}
     </div>
-  {% endblock %}
-  <!-- Side panel content -->
-  {% block sidebar %}
-    <div class="col-sm-3 sidebar">
-      {% set subreddit = subreddit %}
-      {% include "navbars/sidebar.html" %}
+    <div id="content-wrapper">
+      <!-- Main panel content -->
+      {% block body %}
+        <div class="col-sm-9 bodypanel">
+          {% include "_flash.html" %}
+          {% block body_w_flash %}
+          {% endblock %}
+        </div>
+      {% endblock %}
+      <!-- Side panel content -->
+      {% block sidebar %}
+        <div class="col-sm-3 sidebar">
+          {% set subreddit = subreddit %}
+          {% include "navbars/sidebar.html" %}
+        </div>
+      {% endblock %}
     </div>
-  {% endblock %}
-  {% block footer %}
-    {% include "navbars/footer.html" %}
-  {% endblock %}
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  </script>
+    <div id="footer-wrapper">
+      {% block footer %}
+        {% include "navbars/footer.html" %}
+      {% endblock %}
+    </div>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
+  </div>
 </body>
 </html>
