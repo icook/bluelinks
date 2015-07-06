@@ -4,7 +4,6 @@
 {% set page_title = subreddit.name %}
 {% block body_w_flash %}
 <div class="col-md-8">
-  <h1>{{ subreddit.name }}</h1>
   {% if subreddit.posts %}
     {% for post in subreddit.posts %}
     <div class="well well-sm">
