@@ -45,6 +45,9 @@
       {% include "sidebar.html" %}
     </div>
   {% endblock %}
+  {% block footer %}
+    {% include "footer.html" %}
+  {% endblock %}
   <script>
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
