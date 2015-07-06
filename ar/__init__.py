@@ -3,6 +3,7 @@ import logging
 import os
 import yaml
 import sys
+import inspect
 
 from flask import Flask, current_app
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -15,6 +16,8 @@ from flask.ext.redis import FlaskRedis
 from flask_mail import Mail
 from jinja2 import FileSystemLoader
 from werkzeug.local import LocalProxy
+
+import ar.filters as filters
 
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')
@@ -102,6 +105,10 @@ def create_app(config='/config.yml', log_level='INFO'):
     except Exception:
         app.config['hash'] = ''
         app.config['revdate'] = ''
+
+    # Dynamically add all the filters in the filters.py file
+    for name, func in inspect.getmembers(filters, inspect.isfunction):
+        app.jinja_env.filters[name] = func
 
     # Route registration
     # =========================================================================

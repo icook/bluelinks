@@ -16,6 +16,7 @@
       {% else %}
         {{ post.title }}
       {% endif %}
+      <small class="muted">{{ post.created_at | human_date_utc }}</small>
     </h2>
     {% if post.contents %}
       <div class="well">
@@ -29,7 +30,10 @@
     <div class="pull-left" style="padding-right: 10px;">
       {{ make_arrows(comment, current_user) }}
     </div>
-    <div><a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a></div>
+    <div>
+      <a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a>
+      <span class="text-muted">{{ post.created_at | human_date_utc }}</span>
+    </div>
     {{ comment.text }}
     <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>
     {% if comment.children %}
