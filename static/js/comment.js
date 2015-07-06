@@ -16,7 +16,7 @@ $(function () {
   $(".reply-link").click(function (e) {
       var t = $(this)
       var div = t.parent();
-      var form = $("#comment-form").clone().data({ parent: this.dataset.parent });
+      var form = $("#comment-form").clone().attr("data-parent", this.dataset.parent);
       form.find('[name=submit]').click(function (e) {
           submission($(this).parents('form'));
       });
