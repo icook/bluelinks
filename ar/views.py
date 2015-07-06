@@ -31,15 +31,15 @@ def post(name, post_id):
     nested = []
     last_obj = None
     for comment in post.comments:
-        # It's a subcomment...
+        # Bubble back up until we find the parent of this comment
+        while last_obj is not None and not comment.path.startswith(last_obj.path):
+            last_obj = last_obj.parent
+
         if last_obj is None:
             nested.append(comment)
             comment.parent = last_obj
             comment.depth = 0
         else:
-            # Bubble back up until we find the parent of this comment
-            while not comment.path.startswith(last_obj.path):
-                last_obj = last_obj.parent
             last_obj.children.append(comment)
             comment.depth = last_obj.depth + 1
             comment.parent = last_obj
