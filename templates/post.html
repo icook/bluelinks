@@ -21,11 +21,14 @@
     {% endif %}
   </div>
 
-  {% for comment in post.comments %}
-  <div class="well well-sm">
+  {% for comment in comments recursive %}
+  <div class="{% if comment.depth is odd %}comment-odd {% else %} comment-even{% endif %} well well-sm">
     <div><a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a></div>
     {{ comment.text }}
     <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>
+    {% if comment.children %}
+    {{ loop(comment.children) }}
+    {% endif %}
   </div>
   {% endfor %}
 </div>

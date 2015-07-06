@@ -109,5 +109,13 @@ $navbar-default-border:                    #FFF;
   color: orange;
 }
 
+.well.well-sm.comment-odd {
+  background-color: #fff;
+}
+
+.well.well-sm.comment-even {
+  background-color: #f3f3f3;
+}
+
 @import "bootstrap";
 @import "font-awesome";

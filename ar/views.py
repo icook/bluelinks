@@ -28,7 +28,24 @@ def favicon():
 @main.route("/r/<name>/comments/<post_id>")
 def post(name, post_id):
     post = Post.query.filter_by(id=post_id).one()
-    return render_template('post.html', post=post)
+    nested = []
+    last_obj = None
+    for comment in post.comments:
+        # It's a subcomment...
+        if last_obj is None:
+            nested.append(comment)
+            comment.parent = last_obj
+            comment.depth = 0
+        else:
+            # Bubble back up until we find the parent of this comment
+            while not comment.path.startswith(last_obj.path):
+                last_obj = comment.parent
+            last_obj.children.append(comment)
+            comment.depth = last_obj.depth + 1
+            comment.parent = last_obj
+        last_obj = comment
+        last_obj.children = []
+    return render_template('post.html', post=post, comments=nested)
 
 
 @main.route("/u/<username>")
