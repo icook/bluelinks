@@ -1,5 +1,5 @@
 body {
-  padding-top: 105px;
+  padding-top: 72px;
 }
 
 .fa.fa-nav {
@@ -11,19 +11,78 @@ body {
   float: right;
 }
 
+ul.navbar-user {
+  margin-top: 13px;
+  margin-bottom: -6px;
+}
+
 .navbar-subnav {
-  padding-top:3px;
   background-color: #CEE3F8;
   min-height: 50px;
   border-bottom:1px solid #0068B0;
+  position: relative;
+}
+
+.left-nav {
+  position: relative;
+  height: 50px;
 }
 
 .subreddit-title {
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 10px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-weight: bold;
   font-size: 14px;
+}
+
+.navbar-subreddits {
+  border-bottom:1px solid black;
+  min-height:22px;
+  padding-top: 1px;
+  background-color: #F0F0F0;
+  color: rgb(129, 129, 129);
+}
+
+.navbar-subreddits > ul {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 12px;
+  margin-bottom:0;
+}
+
+.navbar-subreddits > ul li a {
+  color: #595959;
+}
+
+.navbar-subnav .navbar-text {
+  margin-top:26px;
+  margin-bottom:0;
+}
+
+.nav.nav-tabs {
+  position: relative;
+  top: 20px;
+  left: 10px;
+  border-bottom: 0;
+}
+
+.nav.nav-tabs li {
+  margin-left: 4px;
+}
+
+.nav.nav-tabs > li a {
+  background-color: #EFF7FF;
+  padding: 4px 10px
+}
+
+.nav.nav-tabs > li.active {
+  top: 2px;
+}
+
+.nav.nav-tabs > li.active a, .nav.nav-tabs > li.active a:hover, .nav.nav-tabs > li.active a:focus {
+  background-color: fff;
+  border-bottom: 0;
+  border-color: #0068B0;
 }
 
 $navbar-default-color:                     #000;
@@ -31,6 +90,7 @@ $navbar-default-link-color:                #000;
 $navbar-default-link-hover-color:          #4183c4;
 $navbar-default-brand-hover-color:         $navbar-default-link-hover-color;
 $navbar-height:                            45px;
+$navbar-default-border:                    #FFF;
 
 .vote.up.enabled {
   color: green;

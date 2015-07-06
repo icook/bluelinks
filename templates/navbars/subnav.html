@@ -1,14 +1,39 @@
 <div class="navbar-subnav">
-  <p class="navbar-text">
-    <a href="#" class="navbar-link">
-      <i class="fa fa-reddit"></i>
-      Almost Reddit
-    </a>
-  </p>
-  {% if sub %}
-    <a class="navbar-link subreddit-title" href="/r/{{ sub }}"> /r/{{ sub }}</a>
-  {% endif %}
-  <button type="button" class="btn btn-default navbar-btn active">Best</button>
-  <button type="button" class="btn btn-default navbar-btn">Top</button>
-  <button type="button" class="btn btn-default navbar-btn">Trending</button>
+  <div class="left-nav col-xs-8">
+    <div class="navbar-text">
+      <a href="#" class="navbar-link">
+        <i class="fa fa-reddit"></i>
+        <span class="hidden-xs">
+          Almost Reddit
+        </span>
+      </a>
+    {% if sub %}
+      <a class="navbar-link subreddit-title" href="/r/{{ sub }}"> /r/{{ sub }}</a>
+    {% endif %}
+    </div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs hidden-xs" role="tablist">
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Best</a></li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Top</a></li>
+      <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Trending</a></li>
+    </ul>
+  </div>
+  <ul class="nav navbar-nav navbar-user navbar-right col-xs-4 pull-right">
+    {% if current_user.is_authenticated() %}
+      <li data-toggle="tooltip" data-placement="bottom" title="Sign Out">
+        <a href="/logout"><i class="fa-nav fa fa-sign-out"></i></a>
+      </li>
+      <li data-toggle="tooltip" data-placement="bottom" title="Account">
+        <a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a>
+      </li>
+      <li data-toggle="tooltip" data-placement="bottom" title="Profile">
+        <a href="/u/{{ current_user.username }}">
+          <i class="fa-nav fa fa-user fa-2"></i>
+        </a>
+      </li>
+    {% else %}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+    {% endif %}
+  </ul>
 </div>

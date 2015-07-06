@@ -4,6 +4,7 @@
 {% set page_title = subreddit.name %}
 {% block body_w_flash %}
 <div class="col-md-8">
+<br>
   {% if subreddit.posts %}
     {% for post in subreddit.posts %}
     <div class="well well-sm">
@@ -18,7 +19,6 @@
   {% else %}
   <b>No one has posted anything yet!</b>
   {% endif %}
-</div>
 <div class="col-md-4" style="border-left: 1px solid #999;">
   <br />
   <a href="/submit/{{ subreddit.name }}">Submit a new post</a>
