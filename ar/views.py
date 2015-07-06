@@ -28,6 +28,7 @@ def favicon():
 @main.route("/r/<name>/comments/<post_id>")
 def post(name, post_id):
     post = Post.query.filter_by(id=post_id).one()
+
     nested = []
     last_obj = None
     for comment in post.comments:
@@ -45,7 +46,9 @@ def post(name, post_id):
             comment.parent = last_obj
         last_obj = comment
         last_obj.children = []
-    return render_template('post.html', post=post, comments=nested)
+
+    sub = Subreddit.query.filter_by(name=name).first()
+    return render_template('post.html', post=post, comments=nested, subreddit=sub)
 
 
 @main.route("/u/<username>")
