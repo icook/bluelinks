@@ -23,18 +23,19 @@
 
   {% for comment in post.comments %}
   <div class="well well-sm">
-    <div>{{ comment.user.username }}</div>
+    <div><a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a></div>
     {{ comment.text }}
+    <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>
   </div>
   {% endfor %}
 </div>
 <div class="col-md-6">
-  <form method="POST" id="" action="" role="form" class="" _lpchecked="1" data-parent="">
+  <form method="POST" id="comment-form" action="" role="form" class="" _lpchecked="1" data-parent="">
     <div class="form-group">
       <textarea class="form-control" id="contents" name="contents"></textarea>
     </div>
     <div class="form-group ">
-      <button class="btn btn-primary" id="comment-submit" name="submit" type="button">Post</button>
+      <button class="btn btn-primary" name="submit" type="button">Post</button>
     </div>
   </form>
 </div>
