@@ -1,8 +1,11 @@
 import wtforms as field
 import wtforms.validators as validators
+from flask import request
 from flask.ext.wtf import Form
-from flask.ext.security.forms import unique_user_email, RegisterFormMixin
-from . import models as m
+from flask.ext.security.forms import unique_user_email, RegisterFormMixin, NextFormMixin
+from flask.ext.security.utils import get_message, verify_and_update_password
+from flask.ext.security.confirmable import requires_confirmation
+from . import models as m, security
 
 
 password_length = validators.Length(min=6, max=128, message='PASSWORD_INVALID_LENGTH')
@@ -37,6 +40,41 @@ def unique_user_name(form, field):
     if m.User.query.filter_by(username=field.data).first() is not None:
         msg = "Email address already in use!"
         raise validators.ValidationError(msg)
+
+
+class LoginForm(Form, NextFormMixin):
+    username = field.TextField('Username', validators=[validators.Required()])
+    password = field.PasswordField('Password', validators=[validators.Required()])
+    remember = field.BooleanField('Remember Me')
+    submit = field.SubmitField("Login")
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        if not self.next.data:
+            self.next.data = request.args.get('next', '')
+
+    def validate(self):
+        if not super(LoginForm, self).validate():
+            return False
+
+        self.user = m.User.query.filter_by(username=self.username.data).first()
+
+        if self.user is None:
+            self.user.errors.append(get_message('USER_DOES_NOT_EXIST')[0])
+            return False
+        if not self.user.password:
+            self.password.errors.append(get_message('PASSWORD_NOT_SET')[0])
+            return False
+        if not verify_and_update_password(self.password.data, self.user):
+            self.password.errors.append(get_message('INVALID_PASSWORD')[0])
+            return False
+        if requires_confirmation(self.user):
+            self.user.errors.append(get_message('CONFIRMATION_REQUIRED')[0])
+            return False
+        if not self.user.is_active():
+            self.user.errors.append(get_message('DISABLED_ACCOUNT')[0])
+            return False
+        return True
 
 
 class ExtendedRegisterForm(Form):

@@ -4,7 +4,7 @@ import os
 import yaml
 import sys
 
-from flask import Flask
+from flask import Flask, current_app
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.assets import Environment, Bundle
@@ -14,13 +14,15 @@ from flask.ext.admin import Admin
 from flask.ext.redis import FlaskRedis
 from flask_mail import Mail
 from jinja2 import FileSystemLoader
+from werkzeug.local import LocalProxy
 
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')
+security = LocalProxy(lambda: current_app.extensions['security'])
 lm = LoginManager()
 db = SQLAlchemy()
 assets = Environment()
-security = Security()
+_security = Security()
 mail = Mail()
 admin = Admin()
 redis_store = FlaskRedis()
@@ -76,7 +78,8 @@ def create_app(config='/config.yml', log_level='INFO'):
     redis_store.vote_cmd = redis_store.register_script(lua_redis.vote)
 
     user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
-    security.init_app(app, user_datastore, confirm_register_form=forms.ExtendedRegisterForm)
+    _security.init_app(app, user_datastore, confirm_register_form=forms.ExtendedRegisterForm)
+    app.extensions['security'].login_form = forms.LoginForm
     assets.init_app(app)
     # We're going to modify SCSS load path to let us override vanilla bootstrap stuff
     bootstrap_all = Bundle('../scss/main.scss',
