@@ -42,11 +42,11 @@
   {% block sidebar %}
     <div class="col-sm-3 sidebar">
       {% set subreddit = subreddit %}
-      {% include "sidebar.html" %}
+      {% include "navbars/sidebar.html" %}
     </div>
   {% endblock %}
   {% block footer %}
-    {% include "footer.html" %}
+    {% include "navbars/footer.html" %}
   {% endblock %}
   <script>
     $(function () {
