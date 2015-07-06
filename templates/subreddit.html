@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import render_form %}
+{% from "_vote_arrows.html" import make_arrows %}
 {% set active_page = "subreddit" %}
 {% set page_title = subreddit.name %}
 {% block body_w_flash %}
@@ -7,7 +7,7 @@
   {% for post in subreddit.posts %}
   <div class="well well-sm">
     <div class="pull-left" style="padding-right: 10px;">
-      {% include "_vote_arrows.html" %}
+        {{ make_arrows(post, current_user) }}
     </div>
     <div><a href="{{ post.url }}">{{ post.title }}</a></div>
     <div><a href="{{ post.comments_url }}">12 comments</a> - share - report</div>
