@@ -55,6 +55,7 @@ class Post(base):
     url = db.Column(db.String)
     text = db.Column(db.Unicode)
     title = db.Column(db.Unicode, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     subreddit_name = db.Column(db.ForeignKey('subreddit.name'))
     subreddit = db.relationship('Subreddit', backref='posts')
@@ -91,6 +92,7 @@ class Comment(base):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String, unique=True)
     text = db.Column(db.Unicode, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     post_id = db.Column(db.ForeignKey('post.id'), nullable=False)
     post = db.relationship('Post', backref=db.backref('comments', order_by=path))
