@@ -19,6 +19,6 @@ end
 if status == 0 then
     amount = amount + 1
 end
-redis.call('ZINCRBY', ARGV[5], ARGV[2], amount)
+redis.call('ZINCRBY', ARGV[5], amount, ARGV[2])
 return
 """
