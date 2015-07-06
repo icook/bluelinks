@@ -106,3 +106,11 @@ class SubmissionForm(Form):
         validators=[validators.Length(min=256), validators.Optional()])
     nsfw = field.BooleanField('NSFW')
     submit = field.SubmitField("Submit")
+
+
+class CreateSubredditForm(Form):
+    name = field.TextField('Name', validators=[
+        validators.Length(min=5, max=128),
+        validators.Regexp("^[a-zA-Z0-9-_]+$")
+    ])
+    submit = field.SubmitField("Create")

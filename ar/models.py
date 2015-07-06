@@ -48,6 +48,9 @@ class User(base, UserMixin):
 class Subreddit(base):
     name = db.Column(db.String, primary_key=True)
 
+    user_id = db.Column(db.ForeignKey('user.id'))
+    user = db.relationship('User', backref='subreddits')
+
 
 class Post(base):
     id = db.Column(db.Integer, primary_key=True)

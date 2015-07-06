@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "_macros.html" import render_form %}
+{% set active_page = "create_subreddit" %}
+{% set page_title = "Create a new subreddit" %}
+{% block body_w_flash %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>Create a new subreddit</h1>
+      {{ render_form(form) }}
+    </div>
+  </div>
+</div>
+{% endblock %}

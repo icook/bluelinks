@@ -6,7 +6,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
 from . import root, db, lm
-from .forms import SubmissionForm
+from .forms import SubmissionForm, CreateSubredditForm
 from .models import User, Subreddit, Post
 
 
@@ -55,6 +55,21 @@ def post(name, post_id):
 def profile(username):
     obj = User.query.filter_by(username=username).first()
     return render_template('profile.html', user=obj)
+
+
+@main.route("/create_sub", methods=["POST", "GET"])
+@login_required
+def create_subreddit():
+    form = CreateSubredditForm()
+    if form.validate_on_submit():
+        sub = Subreddit(
+            name=form.name.data,
+            user=current_user._get_current_object(),
+        )
+        db.session.add(sub)
+        db.session.commit()
+        return redirect(url_for('main.subreddit', name=sub.name))
+    return render_template('submission.html', form=form)
 
 
 @main.route("/submit/<name>", methods=["POST", "GET"])
