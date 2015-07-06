@@ -75,6 +75,10 @@ class Post(base):
         return self.comments_url
 
     @property
+    def comment_count(self):
+        return Comment.query.filter_by(post_id=self.id).count()
+
+    @property
     def score(self):
         return int(redis_store.zscore(self.subreddit_name, self.id) or 0)
 

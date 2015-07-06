@@ -9,8 +9,9 @@
     <div class="pull-left" style="padding-right: 10px;">
         {{ make_arrows(post, current_user) }}
     </div>
-    <div><a href="{{ post.url }}">{{ post.title }}</a></div>
-    <div><a href="{{ post.comments_url }}">12 comments</a> - share - report</div>
+    <div style="font-size:16pt;"><a href="{{ post.url }}">{{ post.title }}</a></div>
+    <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
+    <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
   </div>
   {% endfor %}
 {% else %}
