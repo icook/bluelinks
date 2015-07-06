@@ -91,12 +91,11 @@ class Comment(base):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String, unique=True)
     text = db.Column(db.Unicode, nullable=False)
-    score = db.Column(db.Integer)
 
-    post_id = db.Column(db.ForeignKey('post.id'))
-    post = db.relationship('Post', backref='comments')
+    post_id = db.Column(db.ForeignKey('post.id'), nullable=False)
+    post = db.relationship('Post', backref=db.backref('comments', order_by=path))
 
-    user_id = db.Column(db.ForeignKey('user.id'))
+    user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='comments')
 
     subcomments = db.relationship(

@@ -3,21 +3,30 @@
 {% set page_title = post.title %}
 {% block body_w_flash %}
 <div class="col-md-8">
-  <h2>
-    <div class="pull-left" style="padding-right: 10px;">
-      {% include "_vote_arrows.html" %}
-    </div>
-    {% if post.url %}
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    {% else %}
-      {{ post.title }}
+  <div class="clearfix">
+    <h2>
+      <div class="pull-left" style="padding-right: 10px;">
+        {% include "_vote_arrows.html" %}
+      </div>
+      {% if post.url %}
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      {% else %}
+        {{ post.title }}
+      {% endif %}
+    </h2>
+    {% if post.contents %}
+      <div class="well">
+        {{ post.contents }}
+      </div>
     {% endif %}
-  </h2>
-  {% if post.contents %}
-    <div class="well well-sm">
-      {{ post.contents }}
-    </div>
-  {% endif %}
+  </div>
+
+  {% for comment in post.comments %}
+  <div class="well well-sm">
+    <div>{{ comment.user.username }}</div>
+    {{ comment.text }}
+  </div>
+  {% endfor %}
 </div>
 <div class="col-md-6">
   <form method="POST" id="" action="" role="form" class="" _lpchecked="1" data-parent="">
@@ -29,6 +38,7 @@
     </div>
   </form>
 </div>
+<script>var post_id = {{ post.id }};</script>
 <script src="/static/js/vote_script.js"></script>
 <script src="/static/js/comment.js"></script>
 {% endblock %}
