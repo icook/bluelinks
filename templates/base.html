@@ -33,6 +33,10 @@
     {% block body_w_flash %}
     {% endblock %}
   {% endblock %}
+  {% block sidebar %}
+    {% set subreddit = subreddit %}
+    {% include "sidebar.html" %}
+  {% endblock %}
   <script>
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
