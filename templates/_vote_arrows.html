@@ -1,8 +1,10 @@
-{% if current_user.is_authenticated() %}
-  {% set v_stat = post.vote_status() %}
-  <i data-sub="{{ post.subreddit_name }}" data-dir="up" data-id="{{ post.id }}" class="fa fa-arrow-up vote up {% if v_stat == 1 %}enabled{%endif%}"></i>
-  <br>
-  <i data-sub="{{ post.subreddit_name }}" data-dir="down" data-id="{{ post.id }}" class="fa fa-arrow-down vote down {% if v_stat == 0 %}enabled{% endif %}"></i>
-{% else %}
-  <a data-dir="up" href="/login" class="fa fa-arrow-up"></a><br><a href="/login" data-dir="down" class="fa fa-arrow-down"></a>
-{% endif %}
+{% macro make_arrows(obj, current_user) %}
+  {% if current_user.is_authenticated() %}
+    {% set v_stat = obj.vote_status() %}
+    <i data-type="{{ obj.type }}" data-group="{{ obj.group }}" data-dir="up" data-id="{{ obj.id }}" class="fa fa-arrow-up vote up {% if v_stat == 1 %}enabled{% endif %}"></i>
+    <br>
+    <i data-type="{{ obj.type }}" data-group="{{ obj.group }}" data-dir="down" data-id="{{ obj.id }}" class="fa fa-arrow-down vote down {% if v_stat == 0 %}enabled{% endif %}"></i>
+  {% else %}
+    <a href="/login" class="fa fa-arrow-up"></a><br><a href="/login" class="fa fa-arrow-down"></a>
+  {% endif %}
+{%- endmacro %}

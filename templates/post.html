@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_vote_arrows.html" import make_arrows %}
 {% set active_page = "post" %}
 {% set page_title = post.title %}
 {% block body_w_flash %}
@@ -6,7 +7,7 @@
   <div class="clearfix">
     <h2>
       <div class="pull-left" style="padding-right: 10px;">
-        {% include "_vote_arrows.html" %}
+        {{ make_arrows(post, current_user) }}
       </div>
       {% if post.url %}
         <a href="{{ post.url }}">{{ post.title }}</a>
@@ -23,6 +24,9 @@
 
   {% for comment in comments recursive %}
   <div class="{% if comment.depth is odd %}comment-odd {% else %} comment-even{% endif %} well well-sm">
+    <div class="pull-left" style="padding-right: 10px;">
+      {{ make_arrows(comment, current_user) }}
+    </div>
     <div><a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a></div>
     {{ comment.text }}
     <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>

@@ -63,6 +63,8 @@ class Post(base):
     user_id = db.Column(db.ForeignKey('user.id'))
     user = db.relationship('User', backref='posts')
 
+    type = "p"
+
     @property
     def display_url(self):
         if self.url:
@@ -81,11 +83,12 @@ class Post(base):
     def redis_key(self):
         return "p{}".format(self.id)
 
+    @property
+    def group(self):
+        return self.subreddit_name
+
     def vote_status(self):
         return int(redis_store.hget(self.redis_key, current_user.id) or 2)
-
-    def vote(self, direction):
-        redis_store.vote_cmd(keys=(), args=(self.id, current_user.id, int(direction == "up"), self.subreddit_name))
 
 
 class Comment(base):
@@ -100,8 +103,21 @@ class Comment(base):
     user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='comments')
 
+    type = "c"
+
     subcomments = db.relationship(
         'Comment',
         primaryjoin=remote(foreign(path)).like(path.concat('/%')),
         viewonly=True,
         order_by=path)
+
+    @property
+    def redis_key(self):
+        return "c{}".format(self.id)
+
+    @property
+    def group(self):
+        return self.post_id
+
+    def vote_status(self):
+        return int(redis_store.hget(self.redis_key, current_user.id) or 2)

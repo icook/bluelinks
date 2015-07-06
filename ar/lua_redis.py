@@ -1,7 +1,7 @@
 vote = """
-local direction = tonumber(ARGV[3])
-local userid = tonumber(ARGV[2])
-local post_key = 'p' .. ARGV[1]
+local direction = tonumber(ARGV[4])
+local userid = tonumber(ARGV[3])
+local post_key = ARGV[1] .. ARGV[2]
 local status = tonumber(redis.call('HGET', post_key, userid))
 if status == direction then
     return
@@ -19,6 +19,6 @@ end
 if status == 0 then
     amount = amount + 1
 end
-redis.call('ZINCRBY', ARGV[4], ARGV[1], amount)
+redis.call('ZINCRBY', ARGV[5], ARGV[2], amount)
 return
 """

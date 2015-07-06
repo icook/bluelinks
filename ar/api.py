@@ -5,7 +5,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
                    url_for, redirect, current_app, jsonify)
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
-from . import root, db, lm
+from . import root, db, lm, redis_store
 from .forms import SubmissionForm
 from .models import User, Subreddit, Post, Comment
 from .base58 import encode, decode
@@ -14,11 +14,11 @@ from .base58 import encode, decode
 api_bp = Blueprint('api', __name__)
 
 
-@api_bp.route("/vote/<subreddit>/<id>/<direction>")
+@api_bp.route("/vote/<typ>/<group>/<id>/<direction>")
 @login_required
-def vote(id, direction, subreddit):
-    post = Post(id=id, subreddit_name=subreddit)
-    post.vote(direction)
+def vote(id, direction, group, typ):
+    parent_key = group if typ == "p" else "pc{}".format(group)
+    redis_store.vote_cmd(keys=(), args=(typ, id, current_user.id, int(direction == "up"), parent_key))
     return jsonify(success=True)
 
 
