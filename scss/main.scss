@@ -112,10 +112,12 @@ ul.navbar-user {
 }
 
 .sidebar {
-  border-left: 1px solid #999;
-  border-bottom: 1px solid #999;
-  padding: 20px 10px;
-  max-height: 80%;
+  //border-left: 1px solid #999;
+  //border-bottom: 1px solid #999;
+  background-color: #EEE;
+  padding: 20px 0;
+  height: 100%;
+  margin-bottom: -272px;
 }
 
 .bodypanel {
