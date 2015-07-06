@@ -4,15 +4,24 @@
 {% set page_title = subreddit.name %}
 {% block body_w_flash %}
 {% if subreddit.posts %}
+<br>
   {% for post in subreddit.posts %}
-  <div class="well well-sm">
-    <div class="pull-left" style="padding-right: 10px;">
-        {{ make_arrows(post, current_user) }}
+    <div class="media" style="margin-top: 8px;">
+      <div class="media-left media-top">
+        <a href="#">
+          <img class="media-object" src="holder.js/75x75"
+               alt="placeholder">
+        </a>
+      </div>
+      <div class="media-body well well-sm">
+        <h4 class="media-heading"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+        <div class="pull-left" style="padding-right: 10px;">
+            {{ make_arrows(post, current_user) }}
+        </div>
+        <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
+        <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
+      </div>
     </div>
-    <div style="font-size:16pt;"><a href="{{ post.url }}">{{ post.title }}</a></div>
-    <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
-    <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
-  </div>
   {% endfor %}
 {% else %}
   <b>No one has posted anything yet!</b>
