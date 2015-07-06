@@ -73,7 +73,7 @@ class Post(base):
 
     @property
     def score(self):
-        return redis_store.zscore(self.subreddit_name, self.id) or 0
+        return int(redis_store.zscore(self.subreddit_name, self.id) or 0)
 
     @property
     def comments_url(self):
@@ -121,3 +121,7 @@ class Comment(base):
 
     def vote_status(self):
         return int(redis_store.hget(self.redis_key, current_user.id) or 2)
+
+    @property
+    def score(self):
+        return int(redis_store.zscore("pc{}".format(self.post_id), self.id) or 0)
