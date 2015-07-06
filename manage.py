@@ -27,7 +27,7 @@ def init_db(generate=False):
             r = Role(name='admin', description='access to flask-admin')
             db.session.add(r)
 
-            u = User(email='admin')
+            u = User(email='admin@localhost', username='admin')
             u.password = 'testing'
             u.active = True
             u.confirmed_at = datetime.datetime.utcnow()
