@@ -13,9 +13,9 @@ from .models import User, Subreddit, Post
 api_bp = Blueprint('api', __name__)
 
 
-@api_bp.route("/vote/<id>/<direction>")
+@api_bp.route("/vote/<subreddit>/<id>/<direction>")
 @login_required
-def vote(id, direction):
-    post = Post(id=id)
+def vote(id, direction, subreddit):
+    post = Post(id=id, subreddit_name=subreddit)
     post.vote(direction)
     return jsonify(success=True)

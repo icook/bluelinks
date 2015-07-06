@@ -8,7 +8,7 @@ $(function () {
     else
       sel.siblings(".up").removeClass('enabled');
     $.ajax({
-      url: "/api/vote/" + obj.dataset.id + "/" + obj.dataset.dir,
+      url: "/api/vote/" + obj.dataset.sub + "/" + obj.dataset.id + "/" + obj.dataset.dir,
     });
   });
 });
