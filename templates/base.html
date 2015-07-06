@@ -40,6 +40,12 @@
           {% include "_flash.html" %}
           {% block body_w_flash %}
           {% endblock %}
+          <!-- Footer content -->
+          <div id="footer-wrapper">
+            {% block footer %}
+              {% include "navbars/footer.html" %}
+            {% endblock %}
+          </div>
         </div>
       {% endblock %}
       <!-- Side panel content -->
@@ -48,11 +54,6 @@
           {% set subreddit = subreddit %}
           {% include "navbars/sidebar.html" %}
         </div>
-      {% endblock %}
-    </div>
-    <div id="footer-wrapper">
-      {% block footer %}
-        {% include "navbars/footer.html" %}
       {% endblock %}
     </div>
     <script>
