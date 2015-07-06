@@ -22,17 +22,21 @@
     <![endif]-->
 </head>
 <body>
-    <!-- Fixed navbar -->
+  <!-- Top navbars -->
+  {% block topnav %}
     <div class="navbar navbar-default navbar-fixed-top">
       {% include "navbars/subreddit-navbar.html" %}
       {% set sub = subreddit.name if subreddit %}
       {% include "navbars/subnav.html" %}
     </div>
+  {% endblock %}
+  <!-- Main panel content -->
   {% block body %}
     {% include "_flash.html" %}
     {% block body_w_flash %}
     {% endblock %}
   {% endblock %}
+  <!-- Side panel content -->
   {% block sidebar %}
     {% set subreddit = subreddit %}
     {% include "sidebar.html" %}
