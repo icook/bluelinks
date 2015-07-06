@@ -102,12 +102,12 @@ def create_app(config='/config.yml', log_level='INFO'):
 
     # Route registration
     # =========================================================================
-    from . import views, models, api
+    from . import views, models, api, admin_views as av
     app.register_blueprint(views.main)
     app.register_blueprint(api.api_bp, url_prefix='/api')
 
-    admin.add_view(ModelView(models.Subreddit, db.session))
-    admin.add_view(ModelView(models.Comment, db.session))
-    admin.add_view(ModelView(models.Post, db.session))
+    admin.add_view(av.SubredditModelView(models.Subreddit, db.session))
+    admin.add_view(av.BaseModelView(models.Comment, db.session))
+    admin.add_view(av.BaseModelView(models.Post, db.session))
 
     return app

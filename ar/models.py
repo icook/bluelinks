@@ -46,8 +46,7 @@ class User(base, UserMixin):
 
 
 class Subreddit(base):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, primary_key=True)
 
 
 class Post(base):
@@ -57,7 +56,7 @@ class Post(base):
     text = db.Column(db.Unicode)
     title = db.Column(db.Unicode, nullable=False)
 
-    subreddit_id = db.Column(db.ForeignKey('subreddit.id'))
+    subreddit_name = db.Column(db.ForeignKey('subreddit.name'))
     subreddit = db.relationship('Subreddit', backref='posts')
 
     user_id = db.Column(db.ForeignKey('user.id'))
@@ -75,7 +74,7 @@ class Post(base):
 
     @property
     def comments_url(self):
-        return url_for('main.post', name=self.subreddit.name, post_id=self.id)
+        return url_for('main.post', name=self.subreddit_name, post_id=self.id)
 
     @property
     def redis_key(self):
