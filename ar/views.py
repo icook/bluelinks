@@ -51,7 +51,7 @@ def post(name, post_id):
             comment.parent = last_obj
         last_obj = comment
         last_obj.children = []
-        last_obj.score_val = scores[comment.id]
+        last_obj.score_val = scores.get(comment.id, 0)
 
     sub = Subreddit.query.filter_by(name=name).first()
     return render_template('post.html', post=post, comments=nested, subreddit=sub, sort_comments=sort_comments)
