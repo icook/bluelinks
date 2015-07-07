@@ -6,7 +6,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
 from . import root, db, lm, redis_store
-from .forms import SubmissionForm
+from .forms import TextSubmissionForm, LinkSubmissionForm
 from .models import User, Subreddit, Post, Comment
 from .base58 import encode, decode
 

@@ -94,16 +94,24 @@ class ExtendedRegisterForm(Form):
     to_dict = RegisterFormMixin.to_dict
 
 
-class SubmissionForm(Form):
+class LinkSubmissionForm(Form):
     title = field.TextField(
         'Title',
-        validators=[validators.Length(min=15, max=512)])
+        validators=[validators.Length(min=10, max=256)])
     url = field.TextField(
         'URL',
-        validators=[EitherOr('contents'), validators.URL(), validators.Optional()])
+        validators=[validators.URL()])
+    nsfw = field.BooleanField('NSFW')
+    submit = field.SubmitField("Submit")
+
+
+class TextSubmissionForm(Form):
+    title = field.TextField(
+        'Title',
+        validators=[validators.Length(min=10, max=256)])
     contents = field.TextAreaField(
         'Contents',
-        validators=[validators.Length(min=256), validators.Optional()])
+        validators=[validators.Length(min=10)])
     nsfw = field.BooleanField('NSFW')
     submit = field.SubmitField("Submit")
 

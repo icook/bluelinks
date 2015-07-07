@@ -6,7 +6,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
 from . import root, db, lm, redis_store
-from .forms import SubmissionForm, CreateSubredditForm
+from .forms import TextSubmissionForm, LinkSubmissionForm, CreateSubredditForm
 from .models import User, Subreddit, Post
 
 
@@ -33,6 +33,7 @@ def post(name, post_id):
               redis_store.zrange("pc{}".format(post.id), 0, -1, withscores=True)}
     nested = []
     last_obj = None
+
     def sort_comments(obj):
         return obj.score_val
     for comment in post.comments:
@@ -77,17 +78,36 @@ def create_subreddit():
     return render_template('submission.html', form=form)
 
 
-@main.route("/submit/<name>", methods=["POST", "GET"])
+@main.route("/submit/<name>/link", methods=["POST", "GET"])
 @login_required
-def subreddit_submission(name):
+def subreddit_link_submission(name):
     sub = Subreddit.query.filter_by(name=name).one()
-    form = SubmissionForm()
+    form = LinkSubmissionForm()
     if form.validate_on_submit():
         post = Post(
             subreddit=sub,
             user=current_user._get_current_object(),
-            url=form.url.data or None,
-            text=form.contents.data or None,
+            url=form.url.data,
+            text=None,
+            title=form.title.data,
+        )
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('main.post', name=name, post_id=post.id))
+    return render_template('submission.html', form=form)
+
+
+@main.route("/submit/<name>/text", methods=["POST", "GET"])
+@login_required
+def subreddit_text_submission(name):
+    sub = Subreddit.query.filter_by(name=name).one()
+    form = TextSubmissionForm()
+    if form.validate_on_submit():
+        post = Post(
+            subreddit=sub,
+            user=current_user._get_current_object(),
+            url=None,
+            text=form.contents.data,
             title=form.title.data,
         )
         db.session.add(post)
