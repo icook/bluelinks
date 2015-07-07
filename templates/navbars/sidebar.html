@@ -1,4 +1,3 @@
-{% if subreddit %}
 <div class="panel panel-default">
   <div class="panel-heading">Welcome to the beta!</div>
   <div class="panel-body">
@@ -6,10 +5,11 @@
   </div>
 </div>
 
+{% if subreddit %}
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/submit/{{ subreddit.name }}">Submit a new post</a>
+  <a type="button" class="btn btn-primary form-control" href="/submit/{{ subreddit.name }}/text">Submit a new post</a>
 </p>
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/submit/{{ subreddit.name }}">Submit a link</a>
+  <a type="button" class="btn btn-primary form-control" href="/submit/{{ subreddit.name }}/link">Submit a link</a>
 </p>
 {% endif %}
