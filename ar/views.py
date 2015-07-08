@@ -16,7 +16,6 @@ main = Blueprint('main', __name__)
 @main.before_request
 def add_globals():
     g.communities = Community.query.all()
-    g.site_title = current_app.config.get('site_title', 'Skeleton Project')
 
 
 @main.route('/favicon.ico')
