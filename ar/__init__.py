@@ -52,23 +52,6 @@ def create_app(config='/config.yml', log_level='INFO'):
     handler.setFormatter(log_format)
     logger.addHandler(handler)
 
-    # add the debug toolbar if we're in debug mode...
-    if app.config['DEBUG']:
-        class LoggerWriter:
-            def __init__(self, logger, level):
-                self.logger = logger
-                self.level = level
-
-            def write(self, message):
-                if message != '\n':
-                    self.logger.log(self.level, message)
-
-            def flush(*args, **kwargs):
-                pass
-
-        sys.stdout = LoggerWriter(app.logger, logging.INFO)
-        sys.stderr = LoggerWriter(app.logger, logging.INFO)
-
     # register all our plugins
     db.init_app(app)
     lm.init_app(app)
