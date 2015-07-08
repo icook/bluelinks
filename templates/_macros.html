@@ -135,12 +135,12 @@
       </h4>
 
       <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
-      <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
-      {% if post.contents %}
-        <div class="well">
-          {{ post.contents }}
+      {% if post.text %}
+        <div class="post-text">
+          {{ post.text }}
         </div>
       {% endif %}
+      <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
     </div>
   </div>
 {%- endmacro %}
