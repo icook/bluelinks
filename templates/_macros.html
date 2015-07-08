@@ -1,3 +1,5 @@
+{% from "_vote_arrows.html" import make_arrows %}
+
 {# Renders field for bootstrap 3 standards.
  
     Params:
@@ -102,3 +104,46 @@
         {% endif %}
     </form>
 {%- endmacro %}
+
+{% macro make_post(post, current_user) %}
+  <div class="media" style="margin-top: 8px;">
+    <div class="media-left media-middle text-center" style="padding-right: 10px;">
+      {{ make_arrows(post, current_user) }}
+    </div>
+    <div class="media-left media-top">
+      <a href="#">
+        <img class="media-object" src="holder.js/75x75"
+             alt="placeholder">
+      </a>
+    </div>
+    <div class="media-body well well-sm">
+      <h4 class="media-heading">
+        {% if post.url %}
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        {% else %}
+          {{ post.title }}
+        {% endif %}
+      </h4>
+
+      <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
+      <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
+      {% if post.contents %}
+        <div class="well">
+          {{ post.contents }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{%- endmacro %}
+
+{% macro make_comment(comment, current_user, odd, sort_comments, loop) %}
+  <div class="pull-left" style="padding-right: 10px;">
+    {{ make_arrows(comment, current_user) }}
+  </div>
+  <div>
+    <a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a>
+    <span class="text-muted">{{ comment.created_at | human_date_utc }}</span>
+  </div>
+  {{ comment.text }}
+  <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>
+{% endmacro %}
