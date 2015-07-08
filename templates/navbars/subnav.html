@@ -9,15 +9,17 @@
           </span>
         </a>
       {% if sub %}
-        <a class="navbar-link subreddit-title" href="/r/{{ sub }}"> /r/{{ sub }}</a>
+        <a class="navbar-link subreddit-title" href="/c/{{ sub }}"> /r/{{ sub }}</a>
       {% endif %}
       </div>
-      <!-- Nav tabs -->
+      <!-- Sort tabs -->
+      {% if sortable %}
       <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" style="width: 225px;" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Best</a></li>
         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Top</a></li>
         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Trending</a></li>
       </ul>
+      {% endif %}
     </div>
   </div>
   <ul class="nav navbar-nav navbar-user navbar-right col-xs-4 pull-right">

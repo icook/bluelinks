@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% from "_macros.html" import make_arrows %}
 {% set active_page = "subreddit" %}
-{% set page_title = subreddit.name %}
+{% set page_title = "/c/" + subreddit.name %}
 {% block body_w_flash %}
 {% if subreddit.posts %}
 <br>

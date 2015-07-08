@@ -26,7 +26,7 @@ def favicon():
         'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@main.route("/r/<name>/comments/<post_id>")
+@main.route("/c/<name>/comments/<post_id>")
 def post(name, post_id):
     post = Post.query.filter_by(id=post_id).one()
 
@@ -58,7 +58,7 @@ def post(name, post_id):
     return render_template('post.html', post=post, comments=nested, subreddit=sub, sort_comments=sort_comments)
 
 
-@main.route("/r/<name>/comments/<post_id>/<comment_id>")
+@main.route("/c/<name>/comments/<post_id>/<comment_id>")
 def permalink(name, post_id, comment_id):
     post = Post.query.filter_by(id=post_id).one()
     subcomments = Comment.query.filter_by(id=comment_id).one().subcomments
@@ -147,7 +147,7 @@ def subreddit_text_submission(name):
     return render_template('submission.html', form=form)
 
 
-@main.route("/r/<name>")
+@main.route("/c/<name>")
 def subreddit(name):
     sub = Subreddit.query.filter_by(name=name).first()
     return render_template('subreddit.html', subreddit=sub)
