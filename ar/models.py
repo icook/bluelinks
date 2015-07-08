@@ -63,7 +63,7 @@ class Post(base):
     community_name = db.Column(db.ForeignKey('community.name'))
     community = db.relationship('Community', backref='posts')
 
-    user_id = db.Column(db.ForeignKey('user.id'))
+    username = db.Column(db.ForeignKey('user.username'))
     user = db.relationship('User', backref='posts')
 
     type = "p"
@@ -107,7 +107,7 @@ class Comment(base):
     post_id = db.Column(db.ForeignKey('post.id'), nullable=False)
     post = db.relationship('Post', backref=db.backref('comments', order_by=path))
 
-    user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
+    username = db.Column(db.ForeignKey('user.username'), nullable=False)
     user = db.relationship('User', backref='comments')
 
     type = "c"

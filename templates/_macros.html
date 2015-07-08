@@ -143,7 +143,7 @@
         {% endif %}
       </h4>
       <!-- Submitted -->
-      <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
+      <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.username }}">{{ post.username }}</a></small>
       <!-- Text -->
       {% if post.text %}
         <div class="well well-sm">
@@ -169,7 +169,7 @@
     </div>
     <div class="media-body">
       <h4 class="media-heading">
-        <a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a>
+        <a href="/u/{{ comment.username }}">{{ comment.username }}</a>
         <small class="text-muted">{{ comment.created_at | human_date_utc }}</small>
       </h4>
 
