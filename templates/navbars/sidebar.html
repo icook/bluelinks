@@ -5,11 +5,11 @@
   </div>
 </div>
 
-{% if subreddit %}
+{% if community %}
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/submit/{{ subreddit.name }}/text">Submit a new post</a>
+  <a type="button" class="btn btn-primary form-control" href="/submit/{{ community.name }}/text">Submit a new post</a>
 </p>
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/submit/{{ subreddit.name }}/link">Submit a link</a>
+  <a type="button" class="btn btn-primary form-control" href="/submit/{{ community.name }}/link">Submit a link</a>
 </p>
 {% endif %}
