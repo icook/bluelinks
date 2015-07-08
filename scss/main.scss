@@ -89,35 +89,74 @@ ul.navbar-user {
   color: #595959;
 }
 
+// Subnav nav tabs
 .navbar-subnav .navbar-text {
   margin-top:26px;
   margin-bottom:0;
 }
 
-.nav.nav-tabs {
+.navbar-subnav .nav.nav-tabs {
   position: relative;
   top: 20px;
   left: 10px;
   border-bottom: 0;
 }
 
-.nav.nav-tabs li {
+.navbar-subnav .nav.nav-tabs li {
   margin-left: 4px;
 }
 
-.nav.nav-tabs > li a {
+.navbar-subnav .nav.nav-tabs > li a {
   background-color: #EFF7FF;
   padding: 4px 10px
 }
 
-.nav.nav-tabs > li.active {
+.navbar-subnav .nav.nav-tabs > li.active {
   top: 2px;
 }
 
-.nav.nav-tabs > li.active a, .nav.nav-tabs > li.active a:hover, .nav.nav-tabs > li.active a:focus {
+.navbar-subnav .nav.nav-tabs > li.active a,
+.navbar-subnav .nav.nav-tabs > li.active a:hover,
+.navbar-subnav .nav.nav-tabs > li.active a:focus {
   background-color: fff;
   border-bottom: 0;
   border-color: #0068B0;
+}
+
+// Comment nav tabs
+.comment-navtabs .navbar-text {
+  margin-top:26px;
+  margin-bottom:0;
+}
+
+.comment-navtabs .nav.nav-tabs {
+  position: relative;
+  border-bottom: 0;
+}
+
+.comment-navtabs .nav.nav-tabs li {
+  margin-left: 4px;
+}
+
+.comment-navtabs .nav.nav-tabs li:first-child {
+  margin-left: 0px;
+}
+
+.comment-navtabs .nav.nav-tabs > li a {
+  background-color: #EFF7FF;
+  padding: 4px 10px
+}
+
+.comment-navtabs .nav.nav-tabs > li.active {
+  top: 2px;
+}
+
+.comment-navtabs .nav.nav-tabs > li.active a,
+.comment-navtabs .nav.nav-tabs > li.active a:hover,
+.comment-navtabs .nav.nav-tabs > li.active a:focus {
+  background-color: fff;
+  border-bottom: 0;
+  border-color: #EEE;
 }
 
 .sidebar {
@@ -179,15 +218,16 @@ $navbar-default-border:                    #FFF;
 }
 
 .well.well-sm.comment-top {
-  margin-top: 8px;
+  margin-left: 0;
 }
 
 .well.well-sm.comment-odd {
-  background-color: #fff;
+background-color: #f3f3f3;
 }
 
 .well.well-sm.comment-even {
-  background-color: #f3f3f3;
+  background-color: #fff;
+
 }
 
 @import "bootstrap";
