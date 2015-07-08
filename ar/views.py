@@ -93,7 +93,7 @@ def profile(username):
     return render_template('profile.html', user=obj)
 
 
-@main.route("/create_sub", methods=["POST", "GET"])
+@main.route("/create_community", methods=["POST", "GET"])
 @login_required
 def create_community():
     form = CreateCommunityForm()
