@@ -18,23 +18,21 @@ html, body {
 
 #content-wrapper {
   overflow: hidden;
+  background-color: #EEEEEE;
 }
 
 .bodypanel {
   min-height: 100% !important;
-}
-
-.body-wrapper {
-  padding-bottom: $footer-height;
+  margin-bottom: $footer-height;
+  background-color: #FFFFFF;
 }
 
 #footer-wrapper {
-  background-color: #EEE;
   overflow: hidden;
   width: 100%;
   height: $footer-height;
   position: absolute;
-  bottom: 0;
+  bottom: -100;
   left: 0;
 }
 
