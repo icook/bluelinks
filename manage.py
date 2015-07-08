@@ -3,7 +3,7 @@ import datetime
 
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
-from ar import create_app, db
+from ar import create_app, db, redis_store
 
 app = create_app()
 manager = Manager(app)
@@ -11,7 +11,8 @@ migrate = Migrate(app, db)
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')
 
-from ar.models import User, Role, Community
+from ar.models import User, Role, Community, Post, Comment
+from ar.hot import hot
 from flask import current_app, _request_ctx_stack
 
 
@@ -38,6 +39,32 @@ def init_db(generate=False):
             db.session.add(s)
             db.session.commit()
             print("Made an admin with username 'admin' and password 'testing'")
+
+
+@manager.command
+def update_hot():
+    """ Setup a coinserver connection fot the shell context """
+    # Make a hot zset for post comments
+    for post in Post.query:
+        query = Comment.query.filter_by(post_id=post.id).options(db.load_only("id", "created_at"))
+        times = {c.id: c.created_at for c in query}
+        hot_list = []
+        for id, score in redis_store.zrange("pc{}".format(post.id), 0, -1, withscores=True):
+            hot_list.extend((id, hot(score, times[int(id)])))
+        if hot_list:
+            redis_store.zadd("pch{}".format(post.id), *hot_list)
+        print("Updated hot scores for post {:,}".format(post.id))
+
+    # Make a hot zset for posts in subreddits
+    for comm in Community.query:
+        query = Post.query.filter_by(community_name=comm.name).options(db.load_only("id", "created_at"))
+        times = {c.id: c.created_at for c in query}
+        hot_list = []
+        for id, score in redis_store.zrange("{}".format(comm.name), 0, -1, withscores=True):
+            hot_list.extend((id, hot(score, times[int(id)])))
+        if hot_list:
+            redis_store.zadd("h{}".format(comm.name), *hot_list)
+        print("Updated hot scores for community {}".format(comm.name))
 
 
 def make_context():

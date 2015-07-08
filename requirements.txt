@@ -29,3 +29,4 @@ py-bcrypt==0.4
 webassets==0.10.1
 .
 ago==0.0.6
+Cython==0.22.1

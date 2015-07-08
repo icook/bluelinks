@@ -18,6 +18,7 @@ from jinja2 import FileSystemLoader
 from werkzeug.local import LocalProxy
 
 import ar.filters as filters
+import pyximport; pyximport.install()
 
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')

@@ -8,6 +8,7 @@ from flask.ext.login import login_required, logout_user, login_user, current_use
 from . import root, db, lm, redis_store
 from .forms import TextSubmissionForm, LinkSubmissionForm, CreateCommunityForm
 from .models import User, Community, Post, Comment
+from .hot import hot
 
 
 main = Blueprint('main', __name__)
@@ -27,10 +28,12 @@ def favicon():
 
 @main.route("/c/<name>/comments/<post_id>")
 def post(name, post_id):
+    sort = request.args.get('sort', 'best')
     post = Post.query.filter_by(id=post_id).one()
+    redis_key = "pc{}" if sort == 'best' else "pch{}"
 
     scores = {int(a): b for a, b in
-              redis_store.zrange("pc{}".format(post.id), 0, -1, withscores=True)}
+              redis_store.zrange(redis_key.format(post.id), 0, -1, withscores=True)}
     nested = []
     last_obj = None
 
