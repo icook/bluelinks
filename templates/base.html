@@ -38,9 +38,11 @@
       <!-- Main panel content -->
       {% block body %}
         <div class="col-sm-9 bodypanel">
-          {% include "_flash.html" %}
-          {% block body_w_flash %}
-          {% endblock %}
+          <div class="body-wrapper">
+            {% include "_flash.html" %}
+            {% block body_w_flash %}
+            {% endblock %}
+          </div>
           <!-- Footer content -->
           <div id="footer-wrapper">
             {% block footer %}
