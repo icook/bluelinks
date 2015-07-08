@@ -164,7 +164,7 @@
     <div class="media-body">
       <h4 class="media-heading">
         <a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a>
-        <span class="text-muted">{{ comment.created_at | human_date_utc }}</span>
+        <small class="text-muted">{{ comment.created_at | human_date_utc }}</small>
       </h4>
 
       <div class="comment-text">

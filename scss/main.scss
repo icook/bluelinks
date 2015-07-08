@@ -135,6 +135,14 @@ ul.navbar-user {
   padding: 10px;
 }
 
+h4.media-heading {
+  font-size: 15px;
+}
+
+.score {
+  font-size: 13px;
+}
+
 $navbar-default-color:                     #000;
 $navbar-default-link-color:                #000;
 $navbar-default-link-hover-color:          #4183c4;
@@ -155,7 +163,7 @@ $navbar-default-border:                    #FFF;
 }
 
 .action-nav {
-  font-size: 11px;
+  font-size: 10px;
   font-family: verdana, arial, helvetica, sans-serif;
 }
 
