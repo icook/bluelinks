@@ -146,13 +146,19 @@
 {%- endmacro %}
 
 {% macro make_comment(comment, current_user, odd, sort_comments, loop) %}
-  <div class="pull-left" style="padding-right: 10px;">
-    {{ make_arrows(comment, current_user) }}
+  <div class="media" style="margin-top: 8px; margin-bottom: 10px;">
+    <div class="media-left media-middle text-center" style="padding-right: 10px;">
+      {{ make_arrows(comment, current_user) }}
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a>
+        <span class="text-muted">{{ comment.created_at | human_date_utc }}</span>
+      </h4>
+
+      <div class="comment-text">
+        {{ comment.text }}
+      </div>
+    </div>
   </div>
-  <div>
-    <a href="/u/{{ comment.user.username }}">{{ comment.user.username }}</a>
-    <span class="text-muted">{{ comment.created_at | human_date_utc }}</span>
-  </div>
-  {{ comment.text }}
-  <div><a class="reply-link" data-parent="{{ comment.id }}">Reply</a></div>
 {% endmacro %}

@@ -7,9 +7,23 @@
 <!-- Top level post -->
 {{ make_post(post, current_user) }}
 <hr>
+<!-- Make top level comment -->
+<div class="row">
+  <div class="col-md-6">
+    Commenting as: {{ current_user.username }}
+    <form method="POST" id="comment-form" action="" role="form" class="" _lpchecked="1" data-parent="">
+      <div class="form-group">
+        <textarea class="form-control" id="contents" name="contents"></textarea>
+      </div>
+      <div class="form-group ">
+        <button class="btn btn-primary" name="submit" type="button">Post</button>
+      </div>
+    </form>
+  </div>
+</div>
 <!-- Comments -->
 {% for comment in comments recursive %}
-  <div class="{% if comment.depth is odd %}comment-odd {% else %}comment-even {% endif %} well well-sm">
+  <div class="comment comment-top {% if comment.depth is odd %}comment-odd {% else %}comment-even {% endif %} well well-sm">
     {{ make_comment(comment, current_user) }}
     {% if comment.children %}
     {% set _ = comment.children.sort(key=sort_comments, reverse=True) %}
@@ -18,16 +32,6 @@
   </div>
 {% endfor %}
 
-<div class="col-md-6">
-  <form method="POST" id="comment-form" action="" role="form" class="" _lpchecked="1" data-parent="">
-    <div class="form-group">
-      <textarea class="form-control" id="contents" name="contents"></textarea>
-    </div>
-    <div class="form-group ">
-      <button class="btn btn-primary" name="submit" type="button">Post</button>
-    </div>
-  </form>
-</div>
 <script>var post_id = {{ post.id }};</script>
 <script src="/static/js/vote_script.js"></script>
 <script src="/static/js/comment.js"></script>

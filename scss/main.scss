@@ -148,6 +148,15 @@ $navbar-default-border:                    #FFF;
   color: orange;
 }
 
+.well.well-sm.comment {
+  margin-bottom: 0px;
+}
+
+.well.well-sm.comment-top {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .well.well-sm.comment-odd {
   background-color: #fff;
 }
