@@ -45,11 +45,11 @@ class User(base, UserMixin):
         return str(self.id)
 
 
-class Subreddit(base):
+class Community(base):
     name = db.Column(db.String, primary_key=True)
 
     user_id = db.Column(db.ForeignKey('user.id'))
-    user = db.relationship('User', backref='subreddits')
+    user = db.relationship('User', backref='communities')
 
 
 class Post(base):
@@ -60,8 +60,8 @@ class Post(base):
     title = db.Column(db.Unicode, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    subreddit_name = db.Column(db.ForeignKey('subreddit.name'))
-    subreddit = db.relationship('Subreddit', backref='posts')
+    community_name = db.Column(db.ForeignKey('community.name'))
+    community = db.relationship('Community', backref='posts')
 
     user_id = db.Column(db.ForeignKey('user.id'))
     user = db.relationship('User', backref='posts')
@@ -80,11 +80,11 @@ class Post(base):
 
     @property
     def score(self):
-        return int(redis_store.zscore(self.subreddit_name, self.id) or 0)
+        return int(redis_store.zscore(self.community_name, self.id) or 0)
 
     @property
     def comments_url(self):
-        return url_for('main.post', name=self.subreddit_name, post_id=self.id)
+        return url_for('main.post', name=self.community_name, post_id=self.id)
 
     @property
     def redis_key(self):
@@ -92,7 +92,7 @@ class Post(base):
 
     @property
     def group(self):
-        return self.subreddit_name
+        return self.community_name
 
     def vote_status(self):
         return int(redis_store.hget(self.redis_key, current_user.id) or 2)

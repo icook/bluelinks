@@ -10,5 +10,5 @@ class BaseModelView(ModelView):
     column_display_pk = True
 
 
-class SubredditModelView(BaseModelView):
+class CommunityModelView(BaseModelView):
     form_columns = ("name", )

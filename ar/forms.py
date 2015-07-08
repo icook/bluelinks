@@ -116,7 +116,7 @@ class TextSubmissionForm(Form):
     submit = field.SubmitField("Submit")
 
 
-class CreateSubredditForm(Form):
+class CreateCommunityForm(Form):
     name = field.TextField('Name', validators=[
         validators.Length(min=5, max=128),
         validators.Regexp("^[a-zA-Z0-9-_]+$")

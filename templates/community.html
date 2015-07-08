@@ -1,31 +1,37 @@
 {% extends "base.html" %}
 {% from "_macros.html" import make_arrows %}
 {% set active_page = "community" %}
+{% if community %}
 {% set page_title = "/c/" + community.name %}
 {% set posts_sortable = true %}
+{% endif %}
 {% block body_w_flash %}
-{% if community.posts %}
-  {% for post in community.posts %}
-    <div class="media" style="margin-top: 8px;">
-      <div class="media-left media-middle text-center" style="padding-right: 10px;">
-        {{ make_arrows(post, current_user) }}
-      </div>
-      <div class="media-left media-top">
-        <a href="#">
-          <img class="media-object" src="holder.js/75x75"
-               alt="placeholder">
-        </a>
-      </div>
-      <div class="media-body well well-sm">
-        <h4 class="media-heading"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+{% if community %}
+  {% if community.posts %}
+    {% for post in community.posts %}
+      <div class="media" style="margin-top: 8px;">
+        <div class="media-left media-middle text-center" style="padding-right: 10px;">
+          {{ make_arrows(post, current_user) }}
+        </div>
+        <div class="media-left media-top">
+          <a href="#">
+            <img class="media-object" src="holder.js/75x75"
+                 alt="placeholder">
+          </a>
+        </div>
+        <div class="media-body well well-sm">
+          <h4 class="media-heading"><a href="{{ post.url }}">{{ post.title }}</a></h4>
 
-        <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
-        <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
+          <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a></small>
+          <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
+        </div>
       </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+    <b>No one has posted anything yet!</b>
+  {% endif %}
 {% else %}
-  <b>No one has posted anything yet!</b>
+  <div class="text-center">No community found!</div>
 {% endif %}
 <script src="/static/js/vote_script.js"></script>
 {% endblock %}

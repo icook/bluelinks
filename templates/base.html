@@ -29,7 +29,7 @@
       {% block topnav %}
         <div class="navbar-default navbar-static-top">
           {% include "navbars/community-navbar.html" %}
-          {% set sub = subreddit.name if subreddit %}
+          {% set sub = community.name if community %}
           {% set posts_sortable = true if posts_sortable %}
           {% include "navbars/subnav.html" %}
         </div>
@@ -55,7 +55,7 @@
       <!-- Side panel content -->
       {% block sidebar %}
         <div class="col-sm-3 sidebar">
-          {% set subreddit = subreddit %}
+          {% set community = community %}
           {% include "navbars/sidebar.html" %}
         </div>
       {% endblock %}

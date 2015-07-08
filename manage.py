@@ -11,7 +11,7 @@ migrate = Migrate(app, db)
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')
 
-from ar.models import User, Role, Subreddit
+from ar.models import User, Role, Community
 from flask import current_app, _request_ctx_stack
 
 
@@ -34,7 +34,7 @@ def init_db(generate=False):
             u.roles.append(r)
             db.session.add(u)
 
-            s = Subreddit(name="pics")
+            s = Community(name="pics")
             db.session.add(s)
             db.session.commit()
             print("Made an admin with username 'admin' and password 'testing'")

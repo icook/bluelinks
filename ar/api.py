@@ -7,7 +7,7 @@ from flask.ext.login import login_required, logout_user, login_user, current_use
 
 from . import root, db, lm, redis_store
 from .forms import TextSubmissionForm, LinkSubmissionForm
-from .models import User, Subreddit, Post, Comment
+from .models import User, Community, Post, Comment
 from .base58 import encode, decode
 
 

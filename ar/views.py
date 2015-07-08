@@ -6,8 +6,8 @@ from flask import (render_template, Blueprint, send_from_directory, request,
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
 from . import root, db, lm, redis_store
-from .forms import TextSubmissionForm, LinkSubmissionForm, CreateSubredditForm
-from .models import User, Subreddit, Post, Comment
+from .forms import TextSubmissionForm, LinkSubmissionForm, CreateCommunityForm
+from .models import User, Community, Post, Comment
 
 
 main = Blueprint('main', __name__)
@@ -15,7 +15,7 @@ main = Blueprint('main', __name__)
 
 @main.before_request
 def add_globals():
-    g.communities = Subreddit.query.all()
+    g.communities = Community.query.all()
     g.site_title = current_app.config.get('site_title', 'Skeleton Project')
 
 
@@ -54,7 +54,7 @@ def post(name, post_id):
         last_obj.children = []
         last_obj.score_val = scores.get(comment.id, 0)
 
-    sub = Subreddit.query.filter_by(name=name).first()
+    sub = Community.query.filter_by(name=name).first()
     return render_template('post.html', post=post, comments=nested, community=sub, sort_comments=sort_comments)
 
 
@@ -84,7 +84,7 @@ def permalink(name, post_id, comment_id):
         last_obj.children = []
         last_obj.score_val = scores.get(comment.id, 0)
 
-    sub = Subreddit.query.filter_by(name=name).first()
+    sub = Community.query.filter_by(name=name).first()
     return render_template('post.html', post=post, comments=nested, community=sub, sort_comments=sort_comments)
 
 
@@ -96,10 +96,10 @@ def profile(username):
 
 @main.route("/create_sub", methods=["POST", "GET"])
 @login_required
-def create_subreddit():
-    form = CreateSubredditForm()
+def create_community():
+    form = CreateCommunityForm()
     if form.validate_on_submit():
-        sub = Subreddit(
+        sub = Community(
             name=form.name.data,
             user=current_user._get_current_object(),
         )
@@ -112,11 +112,11 @@ def create_subreddit():
 @main.route("/submit/<name>/link", methods=["POST", "GET"])
 @login_required
 def community_link_submission(name):
-    sub = Subreddit.query.filter_by(name=name).one()
+    sub = Community.query.filter_by(name=name).one()
     form = LinkSubmissionForm()
     if form.validate_on_submit():
         post = Post(
-            subreddit=sub,
+            community=sub,
             user=current_user._get_current_object(),
             url=form.url.data,
             text=None,
@@ -131,11 +131,11 @@ def community_link_submission(name):
 @main.route("/submit/<name>/text", methods=["POST", "GET"])
 @login_required
 def community_text_submission(name):
-    sub = Subreddit.query.filter_by(name=name).one()
+    sub = Community.query.filter_by(name=name).one()
     form = TextSubmissionForm()
     if form.validate_on_submit():
         post = Post(
-            subreddit=sub,
+            community=sub,
             user=current_user._get_current_object(),
             url=None,
             text=form.contents.data,
@@ -149,7 +149,7 @@ def community_text_submission(name):
 
 @main.route("/c/<name>")
 def community(name):
-    sub = Subreddit.query.filter_by(name=name).first()
+    sub = Community.query.filter_by(name=name).first()
     return render_template('community.html', community=sub)
 
 

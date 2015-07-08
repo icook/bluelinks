@@ -63,7 +63,7 @@ ul.navbar-user {
   height: 50px;
 }
 
-.subreddit-title {
+.community-title {
   padding-left: 20px;
   padding-right: 10px;
   font-family: verdana, arial, helvetica, sans-serif;
@@ -71,7 +71,7 @@ ul.navbar-user {
   font-size: 14px;
 }
 
-.navbar-subreddits {
+.navbar-communities {
   border-bottom:1px solid black;
   min-height:22px;
   padding-top: 1px;
@@ -79,13 +79,13 @@ ul.navbar-user {
   color: rgb(129, 129, 129);
 }
 
-.navbar-subreddits > ul {
+.navbar-communities > ul {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 12px;
   margin-bottom:0;
 }
 
-.navbar-subreddits > ul li a {
+.navbar-communities > ul li a {
   color: #595959;
 }
 
