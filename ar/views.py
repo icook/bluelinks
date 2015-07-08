@@ -53,8 +53,9 @@ def post(name, post_id):
         last_obj.children = []
         last_obj.score_val = scores.get(comment.id, 0)
 
-    sub = Community.query.filter_by(name=name).first()
-    return render_template('post.html', post=post, comments=nested, community=sub, sort_comments=sort_comments)
+    comm = Community.query.filter_by(name=name).first()
+    return render_template('post.html', post=post, comments=nested,
+                           community=comm, sort_comments=sort_comments)
 
 
 @main.route("/c/<name>/comments/<post_id>/<comment_id>")
@@ -83,8 +84,9 @@ def permalink(name, post_id, comment_id):
         last_obj.children = []
         last_obj.score_val = scores.get(comment.id, 0)
 
-    sub = Community.query.filter_by(name=name).first()
-    return render_template('post.html', post=post, comments=nested, community=sub, sort_comments=sort_comments)
+    comm = Community.query.filter_by(name=name).first()
+    return render_template('post.html', post=post, comments=nested,
+                           community=comm, sort_comments=sort_comments)
 
 
 @main.route("/u/<username>")
@@ -98,24 +100,24 @@ def profile(username):
 def create_community():
     form = CreateCommunityForm()
     if form.validate_on_submit():
-        sub = Community(
+        comm = Community(
             name=form.name.data,
             user=current_user._get_current_object(),
         )
-        db.session.add(sub)
+        db.session.add(comm)
         db.session.commit()
-        return redirect(url_for('main.community', name=sub.name))
+        return redirect(url_for('main.community', name=comm.name))
     return render_template('submission.html', form=form)
 
 
 @main.route("/submit/<name>/link", methods=["POST", "GET"])
 @login_required
 def community_link_submission(name):
-    sub = Community.query.filter_by(name=name).one()
+    comm = Community.query.filter_by(name=name).one()
     form = LinkSubmissionForm()
     if form.validate_on_submit():
         post = Post(
-            community=sub,
+            community=comm,
             user=current_user._get_current_object(),
             url=form.url.data,
             text=None,
@@ -130,11 +132,11 @@ def community_link_submission(name):
 @main.route("/submit/<name>/text", methods=["POST", "GET"])
 @login_required
 def community_text_submission(name):
-    sub = Community.query.filter_by(name=name).one()
+    comm = Community.query.filter_by(name=name).one()
     form = TextSubmissionForm()
     if form.validate_on_submit():
         post = Post(
-            community=sub,
+            community=comm,
             user=current_user._get_current_object(),
             url=None,
             text=form.contents.data,
@@ -148,8 +150,8 @@ def community_text_submission(name):
 
 @main.route("/c/<name>")
 def community(name):
-    sub = Community.query.filter_by(name=name).first()
-    return render_template('community.html', community=sub)
+    comm = Community.query.filter_by(name=name).first()
+    return render_template('community.html', community=comm)
 
 
 @main.route("/account")
