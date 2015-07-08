@@ -1,0 +1,44 @@
+site_title: "Skeleton Project"
+site_abbrev: "SP"
+site_url: "https://github.com/icook/skeleton"
+
+log_level: "DEBUG"
+assets_address: "/static"
+
+SQLALCHEMY_DATABASE_URI: "sqlite:////path/to/db.sqlite"
+SECRET_KEY: "testing_key"
+ASSETS_DEBUG: False
+SASS_DEBUG_INFO: True
+DEBUG: True
+
+SECURITY_PASSWORD_HASH: "bcrypt"
+SECURITY_LOGIN_WITHOUT_CONFIRMATION: True
+SECURITY_EMAIL_SENDER: "noreply@skeleton-example.com"
+
+SECURITY_CONFIRMABLE: True
+SECURITY_RECOVERABLE: True
+SECURITY_REGISTERABLE: True
+SECURITY_SEND_REGISTER_EMAIL: False
+
+SECURITY_LOGIN_USER_TEMPLATE: "login.html"
+SECURITY_REGISTER_USER_TEMPLATE: "register_user.html"
+SECURITY_RESET_PASSWORD_TEMPLATE: "reset_password.html"
+SECURITY_CHANGE_PASSWORD_TEMPLATE: "change_password.html"
+SECURITY_SEND_CONFIRMATION_TEMPLATE: "send_confirmation.html"
+SECURITY_FORGOT_PASSWORD_TEMPLATE: "forgot_password.html"
+
+SECURITY_PASSWORD_SALT: "changethisnoob"
+SECURITY_REMEMBER_SALT: "change me as well"
+SECURITY_LOGIN_SALT: "another one..."
+SECURITY_RESET_SALT: "dfsasdf"
+SECURITY_CONFIRM_SALT: "dflkjdsfj"
+
+SASS_LOAD_PATHS:
+    - "../bootstrap-sass/assets/stylesheets"
+    - "../font-awesome-sass/assets/stylesheets"
+
+MAIL_SERVER: 'email-smtp.us-east-1.amazonaws.com'
+MAIL_PORT: 465
+MAIL_USE_SSL: True
+MAIL_USERNAME: ''
+MAIL_PASSWORD: ''
