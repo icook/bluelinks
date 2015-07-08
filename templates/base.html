@@ -30,6 +30,7 @@
         <div class="navbar-default navbar-static-top">
           {% include "navbars/subreddit-navbar.html" %}
           {% set sub = subreddit.name if subreddit %}
+          {% set posts_sortable = true if posts_sortable %}
           {% include "navbars/subnav.html" %}
         </div>
       {% endblock %}

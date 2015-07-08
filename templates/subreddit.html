@@ -2,9 +2,9 @@
 {% from "_macros.html" import make_arrows %}
 {% set active_page = "subreddit" %}
 {% set page_title = "/c/" + subreddit.name %}
+{% set posts_sortable = true %}
 {% block body_w_flash %}
 {% if subreddit.posts %}
-<br>
   {% for post in subreddit.posts %}
     <div class="media" style="margin-top: 8px;">
       <div class="media-left media-middle text-center" style="padding-right: 10px;">
