@@ -1,5 +1,3 @@
-{% from "_vote_arrows.html" import make_arrows %}
-
 {# Renders field for bootstrap 3 standards.
  
     Params:
@@ -103,6 +101,17 @@
             {% endfor %}
         {% endif %}
     </form>
+{%- endmacro %}
+
+{% macro make_arrows(obj, current_user) %}
+  {% if current_user.is_authenticated() %}
+    {% set v_stat = obj.vote_status() %}
+    <i data-type="{{ obj.type }}" data-group="{{ obj.group }}" data-dir="up" data-id="{{ obj.id }}" class="fa fa-arrow-up vote up {% if v_stat == 1 %}enabled{% endif %}"></i>
+    <span class="score">{{ obj.score }}</span>
+    <i data-type="{{ obj.type }}" data-group="{{ obj.group }}" data-dir="down" data-id="{{ obj.id }}" class="fa fa-arrow-down vote down {% if v_stat == 0 %}enabled{% endif %}"></i>
+  {% else %}
+    <a href="/login" class="fa fa-arrow-up"></a><br><a href="/login" class="fa fa-arrow-down"></a>
+  {% endif %}
 {%- endmacro %}
 
 {% macro make_post(post, current_user) %}
