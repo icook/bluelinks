@@ -178,7 +178,7 @@
       </div>
 
       <div class="action-nav">
-        <a href="#">permalink</a>
+        <a href="{{ url_for('main.permalink', name=comment.post.subreddit_name, post_id=comment.post.id, comment_id=comment.id) }}">permalink</a>
         - <a class="reply-link" data-parent="{{ comment.id }}">reply</a>
       </div>
     </div>

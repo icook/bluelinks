@@ -7,7 +7,7 @@ from flask.ext.login import login_required, logout_user, login_user, current_use
 
 from . import root, db, lm, redis_store
 from .forms import TextSubmissionForm, LinkSubmissionForm, CreateSubredditForm
-from .models import User, Subreddit, Post
+from .models import User, Subreddit, Post, Comment
 
 
 main = Blueprint('main', __name__)
@@ -40,6 +40,36 @@ def post(name, post_id):
         # Bubble back up until we find the parent of this comment
         while last_obj is not None and not comment.path.startswith(last_obj.path):
             last_obj = last_obj.parent
+
+        if last_obj is None:
+            nested.append(comment)
+            comment.parent = last_obj
+            comment.depth = 0
+        else:
+            last_obj.children.append(comment)
+            comment.depth = last_obj.depth + 1
+            comment.parent = last_obj
+        last_obj = comment
+        last_obj.children = []
+        last_obj.score_val = scores.get(comment.id, 0)
+
+    sub = Subreddit.query.filter_by(name=name).first()
+    return render_template('post.html', post=post, comments=nested, subreddit=sub, sort_comments=sort_comments)
+
+
+@main.route("/r/<name>/comments/<post_id>/<comment_id>")
+def permalink(name, post_id, comment_id):
+    post = Post.query.filter_by(id=post_id).one()
+    subcomments = Comment.query.filter_by(id=comment_id).one().subcomments
+
+    scores = {int(a): b for a, b in
+              redis_store.zrange("pc{}".format(post.id), 0, -1, withscores=True)}
+    nested = []
+    last_obj = None
+
+    def sort_comments(obj):
+        return obj.score_val
+    for comment in subcomments:
 
         if last_obj is None:
             nested.append(comment)
