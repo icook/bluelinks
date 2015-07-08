@@ -20,6 +20,7 @@ $(function () {
     var form = $("#comment-form").clone().attr("data-parent", this.dataset.parent);
     form.find('[name=submit]').click(function (e) {
       submission($(this).parents('form'));
+      location.reload();
     });
     div.html(form);
   });
