@@ -150,6 +150,10 @@ $navbar-default-border:                    #FFF;
   color: orange;
 }
 
+.media-body > .well.well-sm {
+  margin-bottom: 3px;
+}
+
 .well.well-sm.comment {
   margin-bottom: 0px;
 }
