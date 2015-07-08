@@ -120,10 +120,12 @@
       {{ make_arrows(post, current_user) }}
     </div>
     <div class="media-left media-top">
+      {% if not post.text %}
       <a href="#">
         <img class="media-object" src="holder.js/75x75"
              alt="placeholder">
       </a>
+      {% endif %}
     </div>
     <div class="media-body well well-sm">
       <h4 class="media-heading">
