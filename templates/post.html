@@ -26,10 +26,20 @@
 </div>
 <div class="row comment-navtabs">
   <div class="col-lg-12">
+      {% set sort = request.args.get('sort') %}
       <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Best</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Top</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Trending</a></li>
+        <li role="presentation" {% if sort == 'best' or None %}class="active"{% endif %}>
+          <a href="http://{{ request.host + request.path }}?sort=best"
+             aria-controls="sort_best" role="tab">Best</a>
+        </li>
+        <li role="presentation" {% if sort == 'top' %}class="active"{% endif %}>
+          <a href="http://{{ request.host + request.path }}?sort=top"
+             aria-controls="sort_top" role="tab">Top</a>
+        </li>
+        <li role="presentation" {% if sort == 'trending' %}class="active"{% endif %}>
+          <a href="http://{{ request.host + request.path }}?sort=trending"
+             aria-controls="sort_trending" role="tab">Trending</a>
+        </li>
       </ul>
   </div>
 </div>
