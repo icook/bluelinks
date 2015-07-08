@@ -15,7 +15,7 @@ main = Blueprint('main', __name__)
 
 @main.before_request
 def add_globals():
-    g.subreddits = Subreddit.query.all()
+    g.communities = Subreddit.query.all()
     g.site_title = current_app.config.get('site_title', 'Skeleton Project')
 
 
@@ -55,7 +55,7 @@ def post(name, post_id):
         last_obj.score_val = scores.get(comment.id, 0)
 
     sub = Subreddit.query.filter_by(name=name).first()
-    return render_template('post.html', post=post, comments=nested, subreddit=sub, sort_comments=sort_comments)
+    return render_template('post.html', post=post, comments=nested, community=sub, sort_comments=sort_comments)
 
 
 @main.route("/c/<name>/comments/<post_id>/<comment_id>")
@@ -85,7 +85,7 @@ def permalink(name, post_id, comment_id):
         last_obj.score_val = scores.get(comment.id, 0)
 
     sub = Subreddit.query.filter_by(name=name).first()
-    return render_template('post.html', post=post, comments=nested, subreddit=sub, sort_comments=sort_comments)
+    return render_template('post.html', post=post, comments=nested, community=sub, sort_comments=sort_comments)
 
 
 @main.route("/u/<username>")
@@ -105,13 +105,13 @@ def create_subreddit():
         )
         db.session.add(sub)
         db.session.commit()
-        return redirect(url_for('main.subreddit', name=sub.name))
+        return redirect(url_for('main.community', name=sub.name))
     return render_template('submission.html', form=form)
 
 
 @main.route("/submit/<name>/link", methods=["POST", "GET"])
 @login_required
-def subreddit_link_submission(name):
+def community_link_submission(name):
     sub = Subreddit.query.filter_by(name=name).one()
     form = LinkSubmissionForm()
     if form.validate_on_submit():
@@ -130,7 +130,7 @@ def subreddit_link_submission(name):
 
 @main.route("/submit/<name>/text", methods=["POST", "GET"])
 @login_required
-def subreddit_text_submission(name):
+def community_text_submission(name):
     sub = Subreddit.query.filter_by(name=name).one()
     form = TextSubmissionForm()
     if form.validate_on_submit():
@@ -148,9 +148,9 @@ def subreddit_text_submission(name):
 
 
 @main.route("/c/<name>")
-def subreddit(name):
+def community(name):
     sub = Subreddit.query.filter_by(name=name).first()
-    return render_template('subreddit.html', subreddit=sub)
+    return render_template('community.html', community=sub)
 
 
 @main.route("/account")

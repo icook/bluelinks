@@ -1,11 +1,11 @@
 <div class="navbar-default navbar-subreddits">
   <ul class="list-inline list-unstyled col-lg-12">
     <li>
-      <a id="my-subreddits" href="/">
-        my subreddits <i class="fa fa-angle-down"></i>
+      <a id="my-communities" href="/">
+        my communities <i class="fa fa-angle-down"></i>
       </a>
     </li>
-    {% for sub in g.subreddits %}
+    {% for sub in g.communities %}
       <li><a href="/c/{{ sub.name }}" >{{ sub.name }}</a></li>
     {% endfor %}
   </ul>
