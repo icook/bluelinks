@@ -23,7 +23,7 @@
 </div>
 <!-- Comments -->
 {% for comment in comments recursive %}
-  <div class="comment comment-top {% if comment.depth is odd %}comment-odd {% else %}comment-even {% endif %} well well-sm">
+  <div class="comment {% if comment.depth == 0 %}comment-top {% endif %}{% if comment.depth is odd %}comment-odd {% else %}comment-even {% endif %} well well-sm">
     {{ make_comment(comment, current_user) }}
     {% if comment.children %}
     {% set _ = comment.children.sort(key=sort_comments, reverse=True) %}
@@ -31,7 +31,6 @@
     {% endif %}
   </div>
 {% endfor %}
-
 <script>var post_id = {{ post.id }};</script>
 <script src="/static/js/vote_script.js"></script>
 <script src="/static/js/comment.js"></script>

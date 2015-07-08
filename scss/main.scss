@@ -159,13 +159,18 @@ $navbar-default-border:                    #FFF;
   font-family: verdana, arial, helvetica, sans-serif;
 }
 
+.media {
+  margin-bottom: 7px;
+}
+
 .well.well-sm.comment {
   margin-bottom: 0px;
+  margin-left: 6px;
+  padding-bottom: 3px;
 }
 
 .well.well-sm.comment-top {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 8px;
 }
 
 .well.well-sm.comment-odd {

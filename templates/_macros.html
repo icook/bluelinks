@@ -157,7 +157,7 @@
 {%- endmacro %}
 
 {% macro make_comment(comment, current_user, odd, sort_comments, loop) %}
-  <div class="media" style="margin-top: 8px; margin-bottom: 10px;">
+  <div class="media">
     <div class="media-left media-middle text-center" style="padding-right: 10px;">
       {{ make_arrows(comment, current_user) }}
     </div>
@@ -173,7 +173,7 @@
 
       <div class="action-nav">
         <a href="#">permalink</a>
-        - <a href="#">reply</a>
+        - <a class="reply-link" data-parent="{{ comment.id }}">reply</a>
       </div>
     </div>
   </div>
