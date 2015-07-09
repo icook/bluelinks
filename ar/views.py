@@ -159,6 +159,14 @@ def community_text_submission(name):
 
 @main.route("/c/<name>", methods=["POST", "GET"])
 def community(name):
+    sort = request.args.get('sort', 'hot')
+    redis_key = "h{}" if sort == 'hot' else "{}"
+    offset = request.args.get('page', 0) * 50
+    post_ids = redis_store.zrange(redis_key.format(name), offset, offset + 50)
+    post_ids.reverse()
+    post_ids = [int(pid) for pid in post_ids]
+    posts = {p.id: p for p in Post.query.filter(Post.id.in_(post_ids))}
+    posts = [posts[pid] for pid in post_ids]
     comm = Community.query.filter_by(name=name).first()
     if request.method == "POST":
         if comm in current_user.subscriptions:
@@ -166,7 +174,7 @@ def community(name):
         else:
             current_user.subscriptions.append(comm)
         db.session.commit()
-    return render_template('community.html', community=comm)
+    return render_template('community.html', community=comm, posts=posts)
 
 
 @main.route("/account")
@@ -192,9 +200,10 @@ def generate_frontpage():
 
 @main.route("/")
 def home():
-    posts = generate_frontpage()
-    offset = request.args.get('page', 0)
-    posts = Post.query.filter(Post.id.in_(posts[offset:50]))
+    post_ids = generate_frontpage()
+    offset = request.args.get('page', 0) * 50
+    posts = {p.id: p for p in Post.query.filter(Post.id.in_(post_ids[offset:50]))}
+    posts = [posts[pid] for pid in post_ids]
     return render_template('home.html', posts=posts)
 
 

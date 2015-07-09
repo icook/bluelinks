@@ -7,8 +7,8 @@
 {% endif %}
 {% block body_w_flash %}
 {% if community %}
-  {% if community.posts %}
-    {% for post in community.posts %}
+  {% if posts %}
+    {% for post in posts %}
       <div class="media" style="margin-top: 8px;">
         <div class="media-left media-middle text-center" style="padding-right: 10px;">
           {{ make_arrows(post, current_user) }}
