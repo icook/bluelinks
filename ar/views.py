@@ -133,6 +133,8 @@ def community_link_submission(name):
             title=form.title.data,
         )
         db.session.add(post)
+        db.session.flush()
+        redis_store.vote_cmd(keys=(), args=("p", post.id, current_user.id, 1, comm.name))
         db.session.commit()
         return redirect(url_for('main.post', name=name, post_id=post.id))
     return render_template('submission.html', form=form)
@@ -152,6 +154,8 @@ def community_text_submission(name):
             title=form.title.data,
         )
         db.session.add(post)
+        db.session.flush()
+        redis_store.vote_cmd(keys=(), args=("p", post.id, current_user.id, 1, comm.name))
         db.session.commit()
         return redirect(url_for('main.post', name=name, post_id=post.id))
     return render_template('submission.html', form=form)
