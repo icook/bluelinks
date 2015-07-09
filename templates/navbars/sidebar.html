@@ -7,7 +7,9 @@
 
 {% if community %}
 {% set subscribed = community in current_user.subscriptions %}
-<a class="btn subscribe-link {% if subscribed %}btn-danger{% else %}btn-success{% endif %}" data-community="{{ community.id }}">{% if subscribed %}unsubscribe{% else %}subscribe{% endif %}</a>
+<form method="post">
+  <input type="submit" class="btn subscribe-link {% if subscribed %}btn-danger{% else %}btn-success{% endif %}" data-community="{{ community.id }}" value="{% if subscribed %}unsubscribe{% else %}subscribe{% endif %}">
+</form>
 
 <br>
 <br>

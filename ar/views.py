@@ -151,9 +151,15 @@ def community_text_submission(name):
     return render_template('submission.html', form=form)
 
 
-@main.route("/c/<name>")
+@main.route("/c/<name>", methods=["POST", "GET"])
 def community(name):
     comm = Community.query.filter_by(name=name).first()
+    if request.method == "POST":
+        if comm in current_user.subscriptions:
+            current_user.subscriptions.remove(comm)
+        else:
+            current_user.subscriptions.append(comm)
+        db.session.commit()
     return render_template('community.html', community=comm)
 
 
