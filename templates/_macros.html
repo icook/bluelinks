@@ -136,11 +136,7 @@
     <div class="media-body">
       <!-- Title -->
       <h4 class="media-heading">
-        {% if post.url %}
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        {% else %}
-          {{ post.title }}
-        {% endif %}
+        <a href="{{ post.display_url }}">{{ post.title }}</a>
       </h4>
       <!-- Submitted -->
       <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.username }}">{{ post.username }}</a></small>
