@@ -165,7 +165,8 @@ def community_text_submission(name):
 def community(name):
     sort = request.args.get('sort', 'hot')
     redis_key = "h{}" if sort == 'hot' else "{}"
-    offset = request.args.get('page', 0) * 50
+    page = int(request.args.get('page', 0))
+    offset = page * 50
     post_ids = redis_store.zrange(redis_key.format(name), offset, offset + 50)
     post_ids.reverse()
     post_ids = [int(pid) for pid in post_ids]
@@ -178,7 +179,7 @@ def community(name):
         else:
             current_user.subscriptions.append(comm)
         db.session.commit()
-    return render_template('community.html', community=comm, posts=posts)
+    return render_template('community.html', community=comm, posts=posts, page=page)
 
 
 @main.route("/account")
@@ -205,10 +206,11 @@ def generate_frontpage():
 @main.route("/")
 def home():
     post_ids = generate_frontpage()
-    offset = request.args.get('page', 0) * 50
+    page = int(request.args.get('page', 0))
+    offset = page * 50
     posts = {p.id: p for p in Post.query.filter(Post.id.in_(post_ids[offset:50]))}
     posts = [posts[pid] for pid in post_ids]
-    return render_template('home.html', posts=posts)
+    return render_template('home.html', posts=posts, page=page)
 
 
 @main.route("/logout")

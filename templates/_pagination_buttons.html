@@ -1,0 +1,7 @@
+{# Pagination buttons #}
+{% if page > 0 %}
+<a class="btn btn-info" href="?page={{ page - 1 }}">prev</a>
+{% endif %}
+{% if posts | length >= 50 %}
+<a class="btn btn-info" href="?page={{ page + 1 }}">next</a>
+{% endif %}

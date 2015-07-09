@@ -28,11 +28,13 @@
       </div>
     {% endfor %}
   {% else %}
-    <b>No one has posted anything yet!</b>
+    <b>No posts here to see!</b>
   {% endif %}
 {% else %}
   <div class="text-center">No community found!</div>
 {% endif %}
+
+{% include "_pagination_buttons.html" %}
 <script src="/static/js/vote_script.js"></script>
 {% endblock %}
 
