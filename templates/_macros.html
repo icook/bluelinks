@@ -168,7 +168,7 @@
       {{ make_arrows(comment, current_user) }}
     </div>
     <div class="media-body">
-      <h4 class="media-heading">
+      <h4 id="comment-{{ comment.id }}" class="media-heading">
         <a href="/u/{{ comment.username }}">{{ comment.username }}</a>
         <small class="text-muted">{{ comment.created_at | human_date_utc }}</small>
       </h4>

@@ -41,4 +41,4 @@ def comment(parent=None):
         return jsonify(success=False)
     comment.path = "{}{}".format(parent.path, curr_path) if parent else curr_path
     db.session.commit()
-    return jsonify(success=True)
+    return jsonify(success=True, comment_id=comment.id)

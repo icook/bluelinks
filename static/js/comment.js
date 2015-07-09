@@ -8,6 +8,9 @@ $(function () {
       dataType: "json",
       url: "/api/post_comment/" + obj.dataset.parent,
       data: data
+    }).done(function (data, textStatus, errorThrown) {
+        document.location.hash = "#comment-" + data.comment_id;
+        document.location.reload(true);
     });
   };
   $("[name=submit]").click(function (e) {
