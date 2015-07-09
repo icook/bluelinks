@@ -8,9 +8,9 @@
             BlueLinks
           </span>
         </a>
-      {% if sub %}
-        <a class="navbar-link community-title" href="/c/{{ sub }}"> /c/{{ sub }}</a>
-      {% endif %}
+        {% if sub %}
+          <a class="navbar-link community-title" href="/c/{{ sub }}"> /c/{{ sub }}</a>
+        {% endif %}
       </div>
       <!-- Sort tabs -->
       {% if posts_sortable %}
