@@ -60,7 +60,6 @@ def create_app(config='/config.yml', log_level='INFO'):
     mail.init_app(app)
     redis_store.init_app(app)
 
-
     from . import models, forms, lua_redis
     redis_store.vote_cmd = redis_store.register_script(lua_redis.vote)
 
@@ -103,5 +102,6 @@ def create_app(config='/config.yml', log_level='INFO'):
     admin.add_view(av.CommunityModelView(models.Community, db.session))
     admin.add_view(av.BaseModelView(models.Comment, db.session))
     admin.add_view(av.BaseModelView(models.Post, db.session))
+    admin.add_view(av.BaseModelView(models.User, db.session))
 
     return app
