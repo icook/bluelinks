@@ -45,6 +45,7 @@
   </div>
 </div>
 <!-- Comments -->
+{% set _ = comments.sort(key=sort_comments, reverse=True) %}
 {% for comment in comments recursive %}
   <div class="comment {% if comment.depth == 0 %}comment-top {% endif %}
        {% if comment.depth is odd %}comment-odd{% else %}comment-even{% endif %}
