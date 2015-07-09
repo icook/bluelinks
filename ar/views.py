@@ -62,7 +62,7 @@ def post(name, post_id):
                            community=comm, sort_comments=sort_comments)
 
 
-@main.route("/c/<name>/comments/<post_id>/<comment_id>")
+@main.route("/c/<name>/comments/<post_id>/<comment_id>/")
 def permalink(name, post_id, comment_id):
     post = Post.query.filter_by(id=post_id).one()
     subcomments = Comment.query.filter_by(id=comment_id).one().subcomments
@@ -93,7 +93,7 @@ def permalink(name, post_id, comment_id):
                            community=comm, sort_comments=sort_comments)
 
 
-@main.route("/u/<username>")
+@main.route("/u/<username>/")
 def profile(username):
     obj = User.query.filter_by(username=username).first()
     return render_template('profile.html', user=obj)
@@ -161,7 +161,7 @@ def community_text_submission(name):
     return render_template('submission.html', form=form)
 
 
-@main.route("/c/<name>", methods=["POST", "GET"])
+@main.route("/c/<name>/", methods=["POST", "GET"])
 def community(name):
     sort = request.args.get('sort', 'hot')
     redis_key = "h{}" if sort == 'hot' else "{}"
