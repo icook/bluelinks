@@ -48,7 +48,8 @@ class User(base, UserMixin):
 class Community(base):
     name = db.Column(db.String, primary_key=True)
 
-    user_id = db.Column(db.ForeignKey('user.id'))
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='communities')
 
 

@@ -35,9 +35,10 @@ def init_db(generate=False):
             u.roles.append(r)
             db.session.add(u)
 
-            s = Community(name="pics")
-            db.session.add(s)
-            db.session.commit()
+            for comm in ["pics", "funny", "videos", "news", "science"]:
+                s = Community(name=comm, user=u)
+                db.session.add(s)
+                db.session.commit()
             print("Made an admin with username 'admin' and password 'testing'")
 
 
