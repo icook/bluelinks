@@ -1,9 +1,14 @@
 <div class="navbar-default navbar-communities">
   <ul class="list-inline list-unstyled col-lg-12">
-    <li>
-      <a id="my-communities" href="/">
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
         my communities <i class="fa fa-angle-down"></i>
       </a>
+      <ul class="dropdown-menu">
+        {% for sub in current_user.subscriptions %}
+          <li><a href="/c/{{ sub.name }}" >{{ sub.name }}</a></li>
+        {% endfor %}
+      </ul>
     </li>
     {% for sub in g.communities %}
       <li><a href="/c/{{ sub.name }}" >{{ sub.name }}</a></li>

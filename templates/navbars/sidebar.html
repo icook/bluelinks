@@ -6,17 +6,23 @@
 </div>
 
 {% if community %}
+{% set subscribed = community in current_user.subscriptions %}
+<a class="btn subscribe-link {% if subscribed %}btn-danger{% else %}btn-success{% endif %}" data-community="{{ community.id }}">{% if subscribed %}unsubscribe{% else %}subscribe{% endif %}</a>
+
+<br>
+<br>
+
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/submit/{{ community.name }}/text">Submit a new post</a>
+  <a class="btn btn-primary form-control" href="/submit/{{ community.name }}/text">Submit a new post</a>
 </p>
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/submit/{{ community.name }}/link">Submit a link</a>
+  <a class="btn btn-primary form-control" href="/submit/{{ community.name }}/link">Submit a link</a>
 </p>
 {% endif %}
 
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/create_community">Create a new community</a>
+  <a class="btn btn-primary form-control" href="/create_community">Create a new community</a>
 </p>
 <p class="text-center">
-  <a type="button" class="btn btn-primary form-control" href="/browse_communities">Browse all communities</a>
+  <a class="btn btn-primary form-control" href="/browse_communities">Browse all communities</a>
 </p>

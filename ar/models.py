@@ -13,6 +13,11 @@ roles_users = db.Table('roles_users',
                        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
 
+user_subscriptions = db.Table('user_subscriptions',
+                       db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+                       db.Column('community_name', db.Integer(), db.ForeignKey('community.name')))
+
+
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
@@ -29,6 +34,8 @@ class User(base, UserMixin):
     active = db.Column(db.Boolean)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    subscriptions = db.relationship("Community",
+                                    secondary=user_subscriptions)
 
     # Authentication
     # ========================================================================

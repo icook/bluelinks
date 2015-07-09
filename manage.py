@@ -37,6 +37,7 @@ def init_db(generate=False):
 
             for comm in ["pics", "funny", "videos", "news", "science"]:
                 s = Community(name=comm, user=u)
+                u.subscriptions.append(s)
                 db.session.add(s)
                 db.session.commit()
             print("Made an admin with username 'admin' and password 'testing'")
