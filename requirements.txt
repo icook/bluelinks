@@ -30,3 +30,5 @@ webassets==0.10.1
 .
 ago==0.0.6
 Cython==0.22.1
+misaka==1.0.2
+Flask-Misaka==0.3.0

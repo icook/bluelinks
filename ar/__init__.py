@@ -10,15 +10,16 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.assets import Environment, Bundle
 from flask.ext.security import Security, SQLAlchemyUserDatastore
-from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.admin import Admin
 from flask.ext.redis import FlaskRedis
+from flask.ext.misaka import Misaka
 from flask_mail import Mail
 from jinja2 import FileSystemLoader
 from werkzeug.local import LocalProxy
 
 import ar.filters as filters
-import pyximport; pyximport.install()
+import pyximport
+pyximport.install()
 
 
 root = os.path.abspath(os.path.dirname(__file__) + '/../')
@@ -30,6 +31,7 @@ _security = Security()
 mail = Mail()
 admin = Admin()
 redis_store = FlaskRedis()
+md = Misaka(no_html=True, no_images=True)
 
 
 def create_app(config='/config.yml', log_level='INFO'):
@@ -59,6 +61,7 @@ def create_app(config='/config.yml', log_level='INFO'):
     admin.init_app(app)
     mail.init_app(app)
     redis_store.init_app(app)
+    md.init_app(app)
 
     from . import models, forms, lua_redis
     redis_store.vote_cmd = redis_store.register_script(lua_redis.vote)

@@ -148,7 +148,7 @@
       {% if post.text %}
         <div class="well well-sm">
           <div class="post-text">
-            {{ post.text }}
+            {{ post.text | markdown }}
           </div>
         </div>
       {% endif %}
@@ -174,7 +174,7 @@
       </h4>
 
       <div class="comment-text">
-        {{ comment.text }}
+        {{ comment.text | markdown }}
       </div>
 
       <div class="action-nav">
