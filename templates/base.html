@@ -53,6 +53,8 @@
       <!-- Side panel content -->
       {% block sidebar %}
         <div class="col-sm-3 sidebar">
+          {% block sidebar_content %}
+          {% endblock %}
           {% set community = community %}
           {% include "navbars/sidebar.html" %}
         </div>

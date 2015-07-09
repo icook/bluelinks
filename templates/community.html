@@ -35,3 +35,19 @@
 {% endif %}
 <script src="/static/js/vote_script.js"></script>
 {% endblock %}
+
+{% block sidebar_content %}
+<p class="text-center">
+  <a class="btn btn-primary form-control" href="/submit/{{ community.name }}/text">Submit a new post</a>
+</p>
+<p class="text-center">
+  <a class="btn btn-primary form-control" href="/submit/{{ community.name }}/link">Submit a link</a>
+</p>
+{% set subscribed = community in current_user.subscriptions %}
+<form method="post">
+  <input type="submit" class="btn subscribe-link form-control
+         {% if subscribed %}btn-danger{% else %}btn-success{% endif %}"
+         data-community="{{ community.id }}"
+         value="{% if subscribed %}Unsubscribe{% else %}Subscribe{% endif %}">
+</form>
+{% endblock %}

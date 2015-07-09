@@ -28,3 +28,12 @@
   <b>Sorry, nothing to see here!</b>
 {% endif %}
 {% endblock %}
+
+{% block sidebar_content %}
+<p class="text-center">
+  <a class="btn btn-primary form-control" href="/create_community">Create a new community</a>
+</p>
+<p class="text-center">
+  <a class="btn btn-primary form-control" href="/browse_communities">Browse all communities</a>
+</p>
+{% endblock %}

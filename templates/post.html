@@ -60,3 +60,17 @@
 <script src="/static/js/vote_script.js"></script>
 <script src="/static/js/comment.js"></script>
 {% endblock %}
+
+{% block sidebar_content %}
+<div class="panel panel-default">
+{#  <div class="panel-heading">Post details</div>#}
+  <div class="panel-body">
+    <small class="muted">
+      Submitted {{ post.created_at | human_date_utc }} by
+      <a href="/u/{{ post.username }}">{{ post.username }}</a>
+    </small>
+    <br>
+    <b>{{ post.score }}</b> point(s)
+  </div>
+</div>
+{% endblock %}
