@@ -12,9 +12,9 @@ html, body {
   overflow: hidden;
 }
 
-#navbar-wrapper {
-  overflow: hidden;
-}
+//#navbar-wrapper {
+////  overflow: hidden;
+//}
 
 #content-wrapper {
   overflow: hidden;
@@ -99,6 +99,10 @@ ul.navbar-user {
 }
 
 // Subnav nav tabs
+.navbar-subnav {
+  overflow: hidden;
+}
+
 .navbar-subnav .navbar-text {
   margin-top:26px;
   margin-bottom:0;
