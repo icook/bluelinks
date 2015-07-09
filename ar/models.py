@@ -15,7 +15,7 @@ roles_users = db.Table('roles_users',
 
 user_subscriptions = db.Table('user_subscriptions',
                        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-                       db.Column('community_name', db.Integer(), db.ForeignKey('community.name')))
+                       db.Column('community_name', db.String(), db.ForeignKey('community.name')))
 
 
 class Role(db.Model, RoleMixin):
