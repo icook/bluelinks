@@ -66,7 +66,8 @@ def create_app(config='/config.yml', log_level='INFO'):
     from . import models, forms, lua_redis
     redis_store.vote_cmd = redis_store.register_script(lua_redis.vote)
 
-    user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
+    from . import admin_views as av
+    user_datastore = av.SQLAlchemyUserDatastoreCustom(db, models.User, models.Role)
     _security.init_app(app, user_datastore, confirm_register_form=forms.ExtendedRegisterForm)
     app.extensions['security'].login_form = forms.LoginForm
     assets.init_app(app)
