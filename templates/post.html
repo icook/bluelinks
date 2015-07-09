@@ -14,12 +14,15 @@
 <div class="row">
   <div class="col-md-6">
     Commenting as: {{ current_user.username }}
-    <form method="POST" id="comment-form" action="" role="form" class="" _lpchecked="1" data-parent="">
+    <form method="POST" id="comment-form" action="" role="form" class=""
+          _lpchecked="1" data-parent="">
       <div class="form-group">
         <textarea class="form-control" id="contents" name="contents"></textarea>
       </div>
       <div class="form-group ">
-        <button class="btn btn-primary" name="submit" type="button">Post</button>
+        <button class="btn btn-primary" name="submit" type="button">
+          Post
+        </button>
       </div>
     </form>
   </div>
@@ -28,15 +31,18 @@
   <div class="col-lg-12">
       {% set sort = request.args.get('sort') %}
       <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
-        <li role="presentation" {% if sort == 'best' or not sort %}class="active"{% endif %}>
+        <li role="presentation"
+            {% if sort == 'best' or not sort %}class="active"{% endif %}>
           <a href="http://{{ request.host + request.path }}?sort=best"
              aria-controls="sort_best" role="tab">Best</a>
         </li>
-        <li role="presentation" {% if sort == 'top' %}class="active"{% endif %}>
+        <li role="presentation"
+            {% if sort == 'top' %}class="active"{% endif %}>
           <a href="http://{{ request.host + request.path }}?sort=top"
              aria-controls="sort_top" role="tab">Top</a>
         </li>
-        <li role="presentation" {% if sort == 'trending' %}class="active"{% endif %}>
+        <li role="presentation"
+            {% if sort == 'trending' %}class="active"{% endif %}>
           <a href="http://{{ request.host + request.path }}?sort=trending"
              aria-controls="sort_trending" role="tab">Trending</a>
         </li>
@@ -45,7 +51,9 @@
 </div>
 <!-- Comments -->
 {% for comment in comments recursive %}
-  <div class="comment {% if comment.depth == 0 %}comment-top {% endif %}{% if comment.depth is odd %}comment-odd {% else %}comment-even {% endif %} well well-sm">
+  <div class="comment {% if comment.depth == 0 %}comment-top {% endif %}
+       {% if comment.depth is odd %}comment-odd{% else %}comment-even{% endif %}
+       well well-sm">
     {{ make_comment(comment, current_user) }}
     {% if comment.children %}
     {% set _ = comment.children.sort(key=sort_comments, reverse=True) %}
