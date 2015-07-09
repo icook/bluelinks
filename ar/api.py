@@ -18,7 +18,8 @@ api_bp = Blueprint('api', __name__)
 @login_required
 def vote(id, direction, group, typ):
     parent_key = group if typ == "p" else "pc{}".format(group)
-    redis_store.vote_cmd(keys=(), args=(typ, id, current_user.id, int(direction == "up"), parent_key))
+    direction = 2 if direction == "remove" else int(direction == "up")
+    redis_store.vote_cmd(keys=(), args=(typ, id, current_user.id, direction, parent_key))
     return jsonify(success=True)
 
 
