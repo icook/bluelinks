@@ -3,7 +3,7 @@ import datetime
 import sqlalchemy
 
 from flask import (render_template, Blueprint, send_from_directory, request,
-                   g, url_for, redirect, current_app)
+                   g, url_for, redirect, current_app, abort)
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
 from . import root, db, lm, redis_store
@@ -109,7 +109,12 @@ def create_community():
             user=current_user._get_current_object(),
         )
         db.session.add(comm)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            current_app.logger.warn(e, exc_info=True)
+            abort(500)
+
         return redirect(url_for('main.community', name=comm.name))
     return render_template('submission.html', form=form)
 
