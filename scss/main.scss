@@ -86,6 +86,9 @@ ul.navbar-user {
   padding-top: 1px;
   background-color: #F0F0F0;
   color: rgb(129, 129, 129);
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .navbar-communities > ul {
