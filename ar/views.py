@@ -1,4 +1,5 @@
 import os
+import datetime
 import sqlalchemy
 
 from flask import (render_template, Blueprint, send_from_directory, request,
@@ -169,9 +170,27 @@ def account():
     return render_template('account.html')
 
 
+def generate_frontpage():
+    if current_user.is_authenticated():
+        subs = [sub.name for sub in current_user.subscriptions]
+    else:
+        subs = ["pics", "funny", "videos", "news", "science"]
+    sort = request.args.get('sort', 'hot')
+    redis_key = "h{}" if sort == 'hot' else "{}"
+    posts = {}
+    for sub in subs:
+        data = redis_store.zrange(redis_key.format(sub), 0, 100, withscores=True)
+        for post_id, score in data:
+            posts[int(post_id)] = score
+    return sorted(posts, key=posts.get, reverse=True)
+
+
 @main.route("/")
 def home():
-    return render_template('home.html')
+    posts = generate_frontpage()
+    offset = request.args.get('page', 0)
+    posts = Post.query.filter(Post.id.in_(posts[offset:50]))
+    return render_template('home.html', posts=posts)
 
 
 @main.route("/logout")
