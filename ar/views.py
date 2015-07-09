@@ -29,9 +29,9 @@ def favicon():
 
 @main.route("/c/<name>/comments/<post_id>")
 def post(name, post_id):
-    sort = request.args.get('sort', 'best')
+    sort = request.args.get('sort', 'hot')
     post = Post.query.filter_by(id=post_id).one()
-    redis_key = "pc{}" if sort == 'best' else "pch{}"
+    redis_key = "pc{}" if sort == 'top' else "pch{}"
 
     scores = {int(a): b for a, b in
               redis_store.zrange(redis_key.format(post.id), 0, -1, withscores=True)}

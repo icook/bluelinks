@@ -16,17 +16,13 @@
       {% if posts_sortable %}
       {% set sort = request.args.get('sort') %}
       <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
-        <li role="presentation" {% if sort == 'best' or not sort %}class="active"{% endif %}>
-          <a href="{{ request.path }}?sort=best" aria-controls="sort_best"
-             role="tab">Best</a>
+        <li role="presentation" {% if sort == 'hot' or not sort %}class="active"{% endif %}>
+          <a href="{{ request.path }}?sort=hot" aria-controls="sort_hot"
+             role="tab">Hot</a>
         </li>
         <li role="presentation" {% if sort == 'top' %}class="active"{% endif %}>
           <a href="http://{{ request.host + request.path }}?sort=top"
              aria-controls="sort_top" role="tab">Top</a>
-        </li>
-        <li role="presentation" {% if sort == 'trending' %}class="active"{% endif %}>
-          <a href="http://{{ request.host + request.path }}?sort=trending"
-             aria-controls="sort_trending" role="tab">Trending</a>
         </li>
       </ul>
       {% endif %}
