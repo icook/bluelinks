@@ -20,7 +20,7 @@ class CommunityModelView(BaseModelView):
 class SQLAlchemyUserDatastoreCustom(SQLAlchemyUserDatastore):
     def create_user(self, **kwargs):
         user = super().create_user(**kwargs)
-        comm_list = ["pics", "funny", "videos", "news", "science"]
+        comm_list = ["pics", "funny", "videos", "news", "science", "meta"]
         comms = Community.query.filter(Community.name.in_(comm_list))
         for com in comms:
             user.subscriptions.append(com)

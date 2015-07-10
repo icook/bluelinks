@@ -193,7 +193,7 @@ def generate_frontpage():
     if current_user.is_authenticated():
         subs = [sub.name for sub in current_user.subscriptions]
     else:
-        subs = ["pics", "funny", "videos", "news", "science"]
+        subs = ["pics", "funny", "videos", "news", "science", "meta"]
     sort = request.args.get('sort', 'hot')
     redis_key = "h{}" if sort == 'hot' else "{}"
     posts = {}

@@ -35,7 +35,7 @@ def init_db(generate=False):
             u.roles.append(r)
             db.session.add(u)
 
-            for comm in ["pics", "funny", "videos", "news", "science"]:
+            for comm in ["pics", "funny", "videos", "news", "science", "meta"]:
                 s = Community(name=comm, user=u)
                 u.subscriptions.append(s)
                 db.session.add(s)
