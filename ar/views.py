@@ -113,6 +113,7 @@ def create_community():
             db.session.commit()
         except Exception as e:
             current_app.logger.warn(e, exc_info=True)
+            db.session.rollback()
             abort(500)
 
         return redirect(url_for('main.community', name=comm.name))

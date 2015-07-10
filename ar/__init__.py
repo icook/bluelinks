@@ -5,7 +5,7 @@ import yaml
 import sys
 import inspect
 
-from flask import Flask, current_app
+from flask import Flask, current_app, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.assets import Environment, Bundle
@@ -107,5 +107,10 @@ def create_app(config='/config.yml', log_level='INFO'):
     admin.add_view(av.BaseModelView(models.Comment, db.session))
     admin.add_view(av.BaseModelView(models.Post, db.session))
     admin.add_view(av.BaseModelView(models.User, db.session))
+
+    @app.errorhandler(500)
+    def handle_error(error):
+        current_app.logger.exception(error)
+        return render_template("_500.html", no_header=True)
 
     return app
