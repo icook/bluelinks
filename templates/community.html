@@ -46,10 +46,12 @@
   <a class="btn btn-primary form-control" href="/submit/{{ community.name }}/link">Submit a link</a>
 </p>
 {% set subscribed = community in current_user.subscriptions %}
-<form method="post">
-  <input type="submit" class="btn subscribe-link form-control
-         {% if subscribed %}btn-danger{% else %}btn-success{% endif %}"
-         data-community="{{ community.id }}"
-         value="{% if subscribed %}Unsubscribe{% else %}Subscribe{% endif %}">
-</form>
+{% if current_user.is_authenticated() %}
+  <form method="post">
+    <input type="submit" class="btn subscribe-link form-control
+           {% if subscribed %}btn-danger{% else %}btn-success{% endif %}"
+           data-community="{{ community.id }}"
+           value="{% if subscribed %}Unsubscribe{% else %}Subscribe{% endif %}">
+  </form>
+{% endif %}
 {% endblock %}
