@@ -85,11 +85,12 @@ def create_app(config='/config.yml', log_level='INFO'):
     # try and fetch the git version information
     try:
         output = subprocess.check_output("git show -s --format='%ci %h'",
-                                         shell=True).strip().rsplit(" ", 1)
+                                         shell=True).decode('utf8').strip().rsplit(" ", 1)
         app.config['hash'] = output[1]
         app.config['revdate'] = output[0]
     # celery won't work with this, so set some default
     except Exception:
+        app.logger.info("unable to grab git information", exc_info=True)
         app.config['hash'] = ''
         app.config['revdate'] = ''
 
