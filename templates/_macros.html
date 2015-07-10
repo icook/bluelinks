@@ -174,8 +174,8 @@
       </div>
 
       <div class="action-nav">
-        <a href="{{ url_for('main.permalink', name=comment.post.community_name, post_id=comment.post.id, comment_id=comment.id) }}">permalink</a>
-        - <a class="reply-link" data-parent="{{ comment.id }}">reply</a>
+{#        <a href="{{ url_for('main.permalink', name=comment.post.community_name, post_id=comment.post.id, comment_id=comment.id) }}">permalink</a>#}
+        <a class="reply-link" data-parent="{{ comment.id }}">reply</a>
         <div class="comment-reply"></div>
       </div>
     </div>
