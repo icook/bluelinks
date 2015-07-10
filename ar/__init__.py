@@ -105,7 +105,7 @@ def create_app(config='/config.yml', log_level='INFO'):
 
     admin.add_view(av.CommunityModelView(models.Community, db.session))
     admin.add_view(av.BaseModelView(models.Comment, db.session))
-    admin.add_view(av.BaseModelView(models.Post, db.session))
+    admin.add_view(av.PostModelView(models.Post, db.session))
     admin.add_view(av.BaseModelView(models.User, db.session))
 
     @app.errorhandler(500)
