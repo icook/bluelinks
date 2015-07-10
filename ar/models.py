@@ -51,6 +51,9 @@ class User(base, UserMixin):
     def get_id(self):
         return str(self.id)
 
+    def __str__(self):
+        return "/u/{}".format(self.username)
+
 
 class Community(base):
     name = db.Column(db.String, primary_key=True)
@@ -58,6 +61,9 @@ class Community(base):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='communities')
+
+    def __str__(self):
+        return "/c/{}".format(self.username)
 
 
 class Post(base):
