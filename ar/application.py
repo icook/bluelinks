@@ -76,7 +76,7 @@ def create_app(config='/config.yml', log_level='INFO'):
 
     from . import admin_views as av
     user_datastore = av.SQLAlchemyUserDatastoreCustom(db, models.User, models.Role)
-    _security.init_app(app, user_datastore, confirm_register_form=forms.ExtendedRegisterForm)
+    _security.init_app(app, user_datastore, register_form=forms.ExtendedRegisterForm)
     app.extensions['security'].login_form = forms.LoginForm
     assets.init_app(app)
     # We're going to modify SCSS load path to let us override vanilla bootstrap stuff

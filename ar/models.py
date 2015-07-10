@@ -30,7 +30,7 @@ class Role(db.Model, RoleMixin):
 class User(base, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True, nullable=True)
     password = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     confirmed_at = db.Column(db.DateTime)

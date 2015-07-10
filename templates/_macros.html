@@ -19,10 +19,15 @@
           <i class='fa fa-spinner fa-spin' style="display:none;" id='{{ field.id }}_fcf'></i>
         </span>
         <div class="help-block">
+          {% if field.description %}
+            <p>{{ field.description|safe }}</p>
+          {% endif %}
           <ul>
+          {% if field.errors %}
             {% for e in field.errors %}
               <li>{{ e }}</li>
             {% endfor %}
+          {% endif %}
           </ul>
         </div>
     </div>

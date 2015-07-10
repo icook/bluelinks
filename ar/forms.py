@@ -101,7 +101,9 @@ class ExtendedRegisterForm(Form):
         validators=[unique_user_name])
     email = field.TextField(
         'Email',
-        validators=[validators.Required(), validators.Email(), unique_user_email])
+        validators=[validators.Optional(), validators.Email(), unique_user_email],
+        description='*Optional. Used for password reset only.',
+        filters=[lambda x: x or None])
     password = field.PasswordField(
         'Password',
         validators=[validators.Required(), password_length,
