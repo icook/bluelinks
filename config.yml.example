@@ -5,7 +5,7 @@ site_url: "https://github.com/icook/skeleton"
 log_level: "DEBUG"
 assets_address: "/static"
 
-SQLALCHEMY_DATABASE_URI: "sqlite:////path/to/db.sqlite"
+SQLALCHEMY_DATABASE_URI: "sqlite:///db.sqlite"
 SECRET_KEY: "testing_key"
 ASSETS_DEBUG: False
 SASS_DEBUG_INFO: True
