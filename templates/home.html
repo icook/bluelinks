@@ -17,7 +17,7 @@
 {#        </a>#}
       </div>
       <div class="media-body well well-sm">
-        <h4 class="media-heading"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+        <h4 class="media-heading"><a href="{{ post.display_url }}">{{ post.title }}</a></h4>
 
         <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.user.username }}">{{ post.user.username }}</a> to <a href="/c/{{ post.community_name }}">{{ post.community_name }}</a></small>
         <div><a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a></div>
