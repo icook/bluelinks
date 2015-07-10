@@ -165,7 +165,10 @@
     </div>
     <div class="media-body">
       <h4 id="comment-{{ comment.id }}" class="media-heading">
-        <a href="/u/{{ comment.username }}">{{ comment.username }}</a>
+        <a href="/u/{{ comment.username }}"
+           {% if comment.post.username == comment.username %}
+           class="label label-primary label-as-badge"
+           {% endif %}>{{ comment.username }}</a>
         <small class="text-muted">{{ comment.created_at | human_date_utc }}</small>
       </h4>
 

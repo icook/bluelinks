@@ -12,10 +12,6 @@ html, body {
   overflow: hidden;
 }
 
-//#navbar-wrapper {
-////  overflow: hidden;
-//}
-
 #content-wrapper {
   overflow: hidden;
   background-color: #EEEEEE;
@@ -35,6 +31,10 @@ html, body {
   bottom: -100;
   left: 0;
   padding-top: 15px;
+}
+
+.label-as-badge {
+    border-radius: 1em;
 }
 
 .fa.fa-nav {
