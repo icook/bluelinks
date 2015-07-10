@@ -63,7 +63,7 @@ class Community(base):
     user = db.relationship('User', backref='communities')
 
     def __str__(self):
-        return "/c/{}".format(self.username)
+        return "/c/{}".format(self.name)
 
 
 class Post(base):
