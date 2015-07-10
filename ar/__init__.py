@@ -90,7 +90,7 @@ def create_app(config='/config.yml', log_level='INFO'):
         app.config['revdate'] = output[0]
     # celery won't work with this, so set some default
     except Exception:
-        app.logger.info("unable to grab git information", exc_info=True)
+        app.logger.debug("unable to grab git information", exc_info=True)
         app.config['hash'] = ''
         app.config['revdate'] = ''
 
