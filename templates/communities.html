@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_macros.html" import make_arrows %}
+{% set active_page = "community" %}
+{% if community %}
+{% set page_title = community.name %}
+{% set posts_sortable = true %}
+{% endif %}
+{% block body_w_flash %}
+{% if communities %}
+  {% for community in communities %}
+
+  {% endfor %}
+{% endif %}
+
+{% include "_pagination_buttons.html" %}
+<script src="/static/js/vote_script.js"></script>
+{% endblock %}
+
+{% block sidebar_content %}
+{% endblock %}
