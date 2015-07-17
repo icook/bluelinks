@@ -5,7 +5,8 @@ from flask.ext.wtf import Form
 from flask.ext.security.forms import unique_user_email, RegisterFormMixin, NextFormMixin
 from flask.ext.security.utils import get_message, verify_and_update_password
 from flask.ext.security.confirmable import requires_confirmation
-from . import models as m, security
+from . import models as m
+from .application import security
 
 
 password_length = validators.Length(min=6, max=128, message='PASSWORD_INVALID_LENGTH')

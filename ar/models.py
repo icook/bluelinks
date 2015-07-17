@@ -5,7 +5,7 @@ from flask.ext.security import UserMixin, RoleMixin
 from flask.ext.login import current_user
 from flask import url_for
 from .model_lib import base
-from . import db, redis_store
+from .application import db, redis_store
 
 
 roles_users = db.Table('roles_users',

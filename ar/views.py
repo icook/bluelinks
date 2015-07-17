@@ -6,7 +6,7 @@ from flask import (render_template, Blueprint, send_from_directory, request,
                    g, url_for, redirect, current_app, abort)
 from flask.ext.login import login_required, logout_user, login_user, current_user
 
-from . import root, db, lm, redis_store
+from .application import root, db, lm, redis_store
 from .forms import TextSubmissionForm, LinkSubmissionForm, CreateCommunityForm
 from .models import User, Community, Post, Comment
 from .hot import hot

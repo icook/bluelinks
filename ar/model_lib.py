@@ -2,7 +2,7 @@ from flask.ext.sqlalchemy import (_BoundDeclarativeMeta, BaseQuery,
                                   _QueryProperty)
 from sqlalchemy.ext.declarative import declarative_base
 
-from . import db
+from .application import db
 
 
 class BaseMapper(object):

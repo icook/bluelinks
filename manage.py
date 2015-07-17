@@ -1,9 +1,11 @@
 import os
 import datetime
+import argparse
 
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
-from ar import create_app, db, redis_store
+from ar.application import create_app, db, redis_store
+from celery.bin.celery import main as celery_main
 
 app = create_app()
 manager = Manager(app)
@@ -80,6 +82,15 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def runserver():
     current_app.run(debug=True, host='0.0.0.0')
+
+
+@manager.option('celery_args', nargs=argparse.REMAINDER, help='arguments to provide to celery')
+def celeryworker(celery_args):
+    base_celery_args = ['celery', 'worker', '-n', 'ar_worker', '-C',
+                   '--autoscale=10,1', '--without-gossip']
+    base_celery_args.extend(celery_args)
+    with current_app.app_context():
+        return celery_main(base_celery_args)
 
 
 if __name__ == "__main__":
