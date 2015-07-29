@@ -1,5 +1,4 @@
 import os
-import datetime
 import sqlalchemy
 
 from flask import (render_template, Blueprint, send_from_directory, request,
@@ -9,7 +8,7 @@ from flask.ext.login import login_required, logout_user, login_user, current_use
 from .application import root, db, lm, redis_store
 from .forms import TextSubmissionForm, LinkSubmissionForm, CreateCommunityForm
 from .models import User, Community, Post, Comment
-from .hot import hot
+from .tasks import thumbnail_link
 
 
 main = Blueprint('main', __name__)
@@ -137,6 +136,7 @@ def community_link_submission(name):
         db.session.flush()
         redis_store.vote_cmd(keys=(), args=("p", post.id, current_user.id, 1, comm.name))
         db.session.commit()
+        thumbnail_link.delay(post.id)
         return redirect(url_for('main.post', name=name, post_id=post.id))
     return render_template('submission.html', form=form)
 
