@@ -125,13 +125,8 @@
     <div class="media-left media-top text-center" style="padding-right: 10px;">
       {{ make_arrows(post, current_user) }}
     </div>
-    {% if not post.text %}
-      <div class="media-left media-top">
-{#        <a href="#">#}
-{#          <img class="media-object" src="holder.js/75x75"#}
-{#               alt="placeholder">#}
-{#        </a>#}
-      </div>
+    {% if post.thumbnail_path %}
+      <img src="{{ post.thumbnail_path }}">
     {% endif %}
     <div class="media-body">
       <!-- Title -->
