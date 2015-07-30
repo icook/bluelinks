@@ -87,7 +87,7 @@ def runserver():
 @manager.option('celery_args', nargs=argparse.REMAINDER, help='arguments to provide to celery')
 def celeryworker(celery_args):
     base_celery_args = ['celery', 'worker', '-n', 'ar_worker', '-C',
-                   '--autoscale=10,1', '--without-gossip']
+                   '--autoscale=10,1', '--without-gossip', '--loglevel', 'INFO']
     base_celery_args.extend(celery_args)
     with current_app.app_context():
         return celery_main(base_celery_args)
