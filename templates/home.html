@@ -6,7 +6,7 @@
 {% block body_w_flash %}
 {% if posts %}
   {% for post in posts %}
-    {{ make_post(post, current_user) }}
+    {{ make_post(post, current_user, false) }}
   {% endfor %}
 {% else %}
   <b>Sorry, nothing to see here!</b>

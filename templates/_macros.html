@@ -120,7 +120,7 @@
   {% endif %}
 {%- endmacro %}
 
-{% macro make_post(post, current_user) %}
+{% macro make_post(post, current_user, show_text) %}
   <div class="media">
     <div class="media-left media-top text-center" style="padding-right: 10px;">
       {{ make_arrows(post, current_user) }}
@@ -138,7 +138,7 @@
       <!-- Submitted -->
       <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.username }}">{{ post.username }}</a></small>
       <!-- Text -->
-      {% if post.text %}
+      {% if post.text and show_text %}
         <div class="well well-sm">
           <div class="post-text">
             {{ post.text | markdown }}
