@@ -14,6 +14,8 @@ from .models import Post
 @celery.task
 def thumbnail_link(post_id):
     post = Post.query.filter_by(id=post_id).one()
+    if post.thumbnail_path:
+        raise AttributeError("Post already has a thumbnail!")
     if not post.url:
         raise AttributeError("Post is not a link type!")
 
