@@ -126,7 +126,9 @@
       {{ make_arrows(post, current_user) }}
     </div>
     {% if post.thumbnail_path %}
-      <img src="{{ post.thumbnail_path }}">
+    <div class="media-left media-top text-center">
+      <img src="{{ post.thumbnail_path }}" class="pull-left">
+    </div>
     {% endif %}
     <div class="media-body">
       <!-- Title -->
