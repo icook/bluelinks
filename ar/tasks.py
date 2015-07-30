@@ -23,7 +23,7 @@ def thumbnail_link(post_id):
     if r.status_code != 200:
         raise AttributeError("URL was not properly reachable!")
     c = r.content
-    soup = bs4.BeautifulSoup(c, "lxml")
+    soup = bs4.BeautifulSoup(c, "html5lib")
     img_urls = [t['content'] for t in soup.findAll(attrs={"property": "og:image"})]
 
     if not img_urls:
