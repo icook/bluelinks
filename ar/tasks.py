@@ -35,7 +35,7 @@ def thumbnail_link(post_id):
     if r.status_code != 200:
         raise AttributeError("URL was not properly reachable!")
     im = Image.open(r.raw)
-    im.thumbnail((128, 128))
+    im.thumbnail((70, 70))
     img_file = io.BytesIO()
     im.convert('RGB').save(img_file, "JPEG")
     img_file.seek(0)
