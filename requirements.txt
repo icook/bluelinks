@@ -41,5 +41,4 @@ Pillow==2.9.0
 pytz==2015.4
 kombu==3.0.26
 billiard==3.3.0.20
-anyjson==0.3.3
 amqp==1.4.6
