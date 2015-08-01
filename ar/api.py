@@ -42,4 +42,6 @@ def comment(parent=None):
         return jsonify(success=False)
     comment.path = "{}{}".format(parent.path, curr_path) if parent else curr_path
     db.session.commit()
+    redis_store.vote_cmd(keys=(), args=("c", comment.id, current_user.id, 1,
+                                        "pc{}".format(comment.post_id)))
     return jsonify(success=True, comment_id=comment.id)
