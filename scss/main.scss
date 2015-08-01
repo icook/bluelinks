@@ -257,5 +257,12 @@ background-color: #f3f3f3;
 
 }
 
+// Form Styles
+
+.comment-reply textarea {
+  max-width: 600px;
+  min-height: 100px;
+}
+
 @import "bootstrap";
 @import "font-awesome";
