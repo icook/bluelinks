@@ -27,6 +27,7 @@
     </form>
   </div>
 </div>
+{% if comments %}
 <div class="row comment-navtabs">
   <div class="col-lg-12">
       {% set sort = request.args.get('sort') %}
@@ -44,6 +45,7 @@
       </ul>
   </div>
 </div>
+{% endif %}
 <!-- Comments -->
 {% set _ = comments.sort(key=sort_comments, reverse=True) %}
 {% for comment in comments recursive %}
