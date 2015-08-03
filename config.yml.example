@@ -44,4 +44,10 @@ MAIL_USERNAME: ''
 MAIL_PASSWORD: ''
 
 CELERY_BROKER_URL: 'redis://localhost:6379'
+CELERY_IMPORTS: 'ar.tasks'
 #CELERY_RESULT_BACKEND: 'redis://localhost:6379'
+
+S3_KEY: ''
+S3_SECRET: ''
+S3_BUCKET: ''
+S3_UPLOAD_DIRECTORY: ''
