@@ -136,7 +136,12 @@
         <a href="{{ post.display_url }}">{{ post.title }}</a>
       </h4>
       <!-- Submitted -->
-      <small class="muted">Submitted {{ post.created_at | human_date_utc }} by <a href="/u/{{ post.username }}">{{ post.username }}</a></small>
+      <small class="muted">Submitted {{ post.created_at | human_date_utc }} by
+        <a href="/u/{{ post.username }}">{{ post.username }}</a>
+        {% if not show_text %}
+        to <a href="/c/{{ post.community_name }}">/c/{{ post.community_name }}</a>
+        {% endif %}
+      </small>
       <!-- Text -->
       {% if post.text and show_text %}
         <div class="well well-sm">
