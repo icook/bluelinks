@@ -116,7 +116,15 @@
     </span>
     <i data-type="{{ obj.type }}" data-group="{{ obj.group }}" data-dir="down" data-id="{{ obj.id }}" class="fa fa-arrow-down vote down {% if v_stat == 0 %}enabled{% endif %}"></i>
   {% else %}
-    <a href="/login" class="fa fa-arrow-up"></a><br><a href="/login" class="fa fa-arrow-down"></a>
+    <a href="/login" class="fa fa-arrow-up" style="text-decoration: none; color: #333333;"></a>
+    <span class="score">
+      {% if obj.score > 999 %}
+        999+
+      {% else %}
+        {{ obj.score }}
+      {% endif %}
+    </span>
+    <a href="/login" class="fa fa-arrow-down" style="text-decoration: none; color: #333333;"></a>
   {% endif %}
 {%- endmacro %}
 
