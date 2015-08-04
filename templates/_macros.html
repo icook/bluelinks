@@ -128,7 +128,7 @@
   {% endif %}
 {%- endmacro %}
 
-{% macro make_post(post, current_user, show_text) %}
+{% macro make_post(post, current_user, show_text, in_community=false) %}
   <div class="media">
     <div class="media-left media-top text-center" style="padding-right: 10px;">
       {{ make_arrows(post, current_user) }}
@@ -146,7 +146,7 @@
       <!-- Submitted -->
       <small class="muted">Submitted {{ post.created_at | human_date_utc }} by
         <a href="/u/{{ post.username }}">{{ post.username }}</a>
-        {% if not show_text %}
+        {% if not in_community %}
         to <a href="/c/{{ post.community_name }}">/c/{{ post.community_name }}</a>
         {% endif %}
       </small>
