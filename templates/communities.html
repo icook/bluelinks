@@ -2,17 +2,58 @@
 {% from "_macros.html" import make_arrows %}
 {% set active_page = "community" %}
 {% if community %}
-{% set page_title = community.name %}
+{% set page_title = "Communities" %}
 {% set posts_sortable = true %}
 {% endif %}
 {% block body_w_flash %}
-{% if communities %}
-  {% for community in communities %}
 
-  {% endfor %}
-{% endif %}
+<div class="row">
+{% for community in communities %}
+  <div class="col-sm-4">
+    <div class="media">
+      <div class="media-left media-top text-center" style="padding-right: 10px;">
+{#        {{ community.subscribers or 0 }} subs#}
+      </div>
+      {% if community.thumbnail_path %}
+      <div class="media-left media-top text-center">
+        <img src="{{ community.thumbnail_path }}" class="pull-left">
+      </div>
+      {% endif %}
+      <div class="media-body">
+        <!-- Title -->
+        <h4 class="media-heading">
+          <a href="{{ community }}">/c/{{ community.name }}</a>
+          {% if current_user.is_authenticated() %}
+            <form method="post" style="display: inline;">
+              <input type="hidden" value="{{ community.name }}" name="comm">
+              <input type="submit" class="btn subscribe-link btn-xs
+                     {% if community in current_user.subscriptions %}
+                     btn-danger{% else %}btn-success{% endif %}"
+                     data-community="{{ community.id }}" name="toggle"
+                     value="{% if community in current_user.subscriptions %}
+                     Unsubscribe{% else %}Subscribe{% endif %}">
+            </form>
+          {% endif %}
+        </h4>
+        <!-- Submitted -->
+        <small class="muted">
+          Created {{ community.created_at | human_date_utc }}
+        </small>
+        <!-- Text -->
+        {% if community.description %}
+          <div class="well well-sm">
+            <div class="post-text">
+              {{ community.description | markdown }}
+            </div>
+          </div>
+        {% endif %}
+      </div><!-- /.media-body -->
+    </div>
+  </div>
+{% endfor %}
+</div>
 
-{% include "_pagination_buttons.html" %}
+{#{% include "_pagination_buttons.html" %}#}
 <script src="/static/js/vote_script.js"></script>
 {% endblock %}
 
