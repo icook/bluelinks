@@ -7,9 +7,9 @@
       {% if current_user.is_authenticated() %}
         {% set communities = current_user.subscriptions %}
         <ul class="dropdown-menu">
-          {% for sub in communities %}
-            <li><a href="/c/{{ sub.name }}" >{{ sub.name }}</a></li>
-          {% endfor %}
+          <li><a href="/my_communities"><i class="fa fa-rss"></i> manage subscriptions</a></li>
+          <li class="divider"></li>
+          <li><a href="/communities"><i class="fa fa-search"></i> browse communities</a></li>
         </ul>
       {% else %}
         {% set communities = g.communities %}
