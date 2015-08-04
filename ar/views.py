@@ -214,6 +214,32 @@ def home():
     return render_template('home.html', posts=posts, page=page)
 
 
+@main.route("/communities", methods=["POST", "GET"])
+def communities():
+    if request.method == "POST":
+        comm = Community.query.filter_by(name=request.form['comm']).first()
+        if comm in current_user.subscriptions and request.form['toggle'] == 'Unsubscribe':
+            current_user.subscriptions.remove(comm)
+        elif request.form['toggle'] == 'Subscribe':
+            current_user.subscriptions.append(comm)
+        db.session.commit()
+    return render_template('communities.html', communities=g.communities)
+
+
+@main.route("/my_communities", methods=["POST", "GET"])
+@login_required
+def my_communities():
+    if request.method == "POST":
+        comm = Community.query.filter_by(name=request.form['comm']).first()
+        if comm in current_user.subscriptions and request.form['toggle'] == 'Unsubscribe':
+            current_user.subscriptions.remove(comm)
+        elif request.form['toggle'] == 'Subscribe':
+            current_user.subscriptions.append(comm)
+        db.session.commit()
+    return render_template('communities.html',
+                           communities=current_user.subscriptions)
+
+
 @main.route("/logout")
 @login_required
 def logout():
