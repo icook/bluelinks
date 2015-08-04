@@ -34,7 +34,7 @@
   <form method="post">
     <input type="submit" class="btn subscribe-link form-control
            {% if subscribed %}btn-danger{% else %}btn-success{% endif %}"
-           data-community="{{ community.id }}"
+           data-community="{{ community.id }}" name="toggle"
            value="{% if subscribed %}Unsubscribe{% else %}Subscribe{% endif %}">
   </form>
 {% endif %}

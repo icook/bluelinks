@@ -175,9 +175,9 @@ def community(name):
     posts = [posts[pid] for pid in post_ids]
     comm = Community.query.filter_by(name=name).first()
     if request.method == "POST":
-        if comm in current_user.subscriptions:
+        if comm in current_user.subscriptions and request.form['toggle'] == 'Unsubscribe':
             current_user.subscriptions.remove(comm)
-        else:
+        elif request.form['toggle'] == 'Subscribe':
             current_user.subscriptions.append(comm)
         db.session.commit()
     return render_template('community.html', community=comm, posts=posts, page=page)
