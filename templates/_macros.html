@@ -10,16 +10,21 @@
 #}
 {% macro render_field(field, label_visible=true) -%}
  
-    <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+    <div class="form-group {% if field.errors %}has-error{% endif %} has-feedback {{ kwargs.pop('class_', '') }}">
         {% if (field.type != 'HiddenField' and field.type !='CSRFTokenField') and label_visible %}
             <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
         {% endif %}
         {{ field(class_='form-control', **kwargs) }}
-        {% if field.errors %}
+        <span class="form-control-feedback">
+          <i class='fa fa-spinner fa-spin' style="display:none;" id='{{ field.id }}_fcf'></i>
+        </span>
+        <div class="help-block">
+          <ul>
             {% for e in field.errors %}
-                <p class="help-block">{{ e }}</p>
+              <li>{{ e }}</li>
             {% endfor %}
-        {% endif %}
+          </ul>
+        </div>
     </div>
 {%- endmacro %}
  
