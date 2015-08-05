@@ -1,0 +1,15 @@
+{% extends "navbars/subnav.html" %}
+
+{% block subnav_tabs %}
+  {% set tab = request.args.get('tab') %}
+  <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
+    <li role="presentation" {% if tab == 'submitted' or not tab %}class="active"{% endif %}>
+      <a href="{{ request.path }}?tab=submitted" aria-controls="tab_submitted"
+         role="tab">Submitted</a>
+    </li>
+    <li role="presentation" {% if tab == 'comments' %}class="active"{% endif %}>
+      <a href="{{ request.path }}?tab=comments"
+         aria-controls="tab_comments" role="tab">Comments</a>
+    </li>
+  </ul>
+{% endblock subnav_tabs %}

@@ -1,14 +1,29 @@
 {% extends "base.html" %}
-{% from "_macros.html" import render_form %}
+{% from "_macros.html" import render_form, make_comment, make_post %}
 {% set active_page = "profile" %}
 {% set page_title = "Profile" %}
+
+{% block subnav %}
+  {% set sub = user.username %}
+  {% include "navbars/subnav_profile.html" %}
+{% endblock subnav %}
+
 {% block body_w_flash %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h1>{{ user.username }}'s Profile</h1>
+{% set tab = request.args.get('tab') %}
+<div class="row">
+  <div class="col-md-12">
+    {#Comments#}
+    {% if tab == 'comments' and user.comments %}
+      {% for comm in user.comments %}
+        {{ make_comment(comm, current_user) }}
+      {% endfor %}
+    {% elif tab == 'submitted' and user.posts %}
+      {% for post in user.posts %}
+        {{ make_post(post, current_user, false) }}
+      {% endfor %}
+    {% else %}
       <h3>Hmm.... Nothing here...</h3>
-    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
