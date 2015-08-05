@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 {% from "_macros.html" import make_arrows %}
 {% set active_page = "community" %}
-{% if community %}
 {% set page_title = "Communities" %}
-{% set posts_sortable = true %}
-{% endif %}
 {% block body_w_flash %}
 
 <div class="row">
@@ -14,15 +11,10 @@
       <div class="media-left media-top text-center" style="padding-right: 10px;">
 {#        {{ community.subscribers or 0 }} subs#}
       </div>
-      {% if community.thumbnail_path %}
-      <div class="media-left media-top text-center">
-        <img src="{{ community.thumbnail_path }}" class="pull-left">
-      </div>
-      {% endif %}
       <div class="media-body">
         <!-- Title -->
         <h4 class="media-heading">
-          <a href="{{ community }}">/c/{{ community.name }}</a>
+          <a href="{{ community.name }}">{{ community.name }}</a>
           {% if current_user.is_authenticated() %}
             <form method="post" style="display: inline;">
               <input type="hidden" value="{{ community.name }}" name="comm">
@@ -52,9 +44,6 @@
   </div>
 {% endfor %}
 </div>
-
-{#{% include "_pagination_buttons.html" %}#}
-<script src="/static/js/vote_script.js"></script>
 {% endblock %}
 
 {% block sidebar_content %}

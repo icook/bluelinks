@@ -2,8 +2,8 @@
 {% from "_macros.html" import make_arrows, make_post %}
 {% set active_page = "community" %}
 {% if community %}
-{% set page_title = community.name %}
-{% set posts_sortable = true %}
+  {% set page_title = community.name %}
+  {% set posts_sortable = true %}
 {% endif %}
 {% block body_w_flash %}
 {% if community %}
