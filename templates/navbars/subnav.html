@@ -8,24 +8,16 @@
             BlueLinks
           </span>
         </a>
+        {% if community %}
+          {% set sub = community.name %}
+        {% endif %}
         {% if sub %}
           <a class="navbar-link community-title" href="/c/{{ sub }}">{{ sub }}</a>
         {% endif %}
       </div>
       <!-- Sort tabs -->
-      {% if posts_sortable %}
-      {% set sort = request.args.get('sort') %}
-      <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
-        <li role="presentation" {% if sort == 'hot' or not sort %}class="active"{% endif %}>
-          <a href="{{ request.path }}?sort=hot" aria-controls="sort_hot"
-             role="tab">Hot</a>
-        </li>
-        <li role="presentation" {% if sort == 'top' %}class="active"{% endif %}>
-          <a href="http://{{ request.host + request.path }}?sort=top"
-             aria-controls="sort_top" role="tab">Top</a>
-        </li>
-      </ul>
-      {% endif %}
+      {% block subnav_tabs %}
+      {% endblock subnav_tabs %}
     </div>
   </div>
   <ul class="nav navbar-nav navbar-user navbar-right col-xs-4 pull-right">

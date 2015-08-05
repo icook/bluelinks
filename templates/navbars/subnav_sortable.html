@@ -1,0 +1,15 @@
+{% extends "navbars/subnav.html" %}
+
+{% block subnav_tabs %}
+  {% set sort = request.args.get('sort') %}
+  <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
+    <li role="presentation" {% if sort == 'hot' or not sort %}class="active"{% endif %}>
+      <a href="{{ request.path }}?sort=hot" aria-controls="sort_hot"
+         role="tab">Hot</a>
+    </li>
+    <li role="presentation" {% if sort == 'top' %}class="active"{% endif %}>
+      <a href="http://{{ request.host + request.path }}?sort=top"
+         aria-controls="sort_top" role="tab">Top</a>
+    </li>
+  </ul>
+{% endblock subnav_tabs %}

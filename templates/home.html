@@ -2,7 +2,9 @@
 {% from "_macros.html" import make_arrows, make_post %}
 {% set active_page = "home" %}
 {% set page_title = "Home" %}
-{% set posts_sortable = true %}
+{% block subnav %}
+  {% include "navbars/subnav_sortable.html" %}
+{% endblock subnav %}
 {% block body_w_flash %}
 {% if posts %}
   {% for post in posts %}

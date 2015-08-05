@@ -27,9 +27,9 @@
       {% block topnav %}
         <div class="navbar-default navbar-static-top">
           {% include "navbars/community-navbar.html" %}
-          {% set sub = community.name if community %}
-          {% set posts_sortable = true if posts_sortable %}
-          {% include "navbars/subnav.html" %}
+          {% block subnav %}
+            {% include "navbars/subnav.html" %}
+          {% endblock subnav %}
         </div>
       {% endblock %}
     </div>
