@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block body_w_flash %}
-<h1>Internal Server Error ¯\_(ツ)_/¯</h1>
-<p>Seems we've goofed up, sorry about that. Details about this error have been logged. You might try again in a minute, we'll try to do better next time.</p>
-{% if g.sentry_event_id %}
-<p>The error identifier is <b>{{ g.sentry_event_id }}</b></p>
-{% endif %}
-{% endblock %}

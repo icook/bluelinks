@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block body_w_flash %}
+<h1>403 Forbidden</h1>
+<p>You don't have permission to do that. <a href="/">Bluelinks home</a> - <a href="/login">login</a></p>
+{% if g.sentry_event_id %}
+<p>The error identifier is <b>{{ g.sentry_event_id }}</b></p>
+{% endif %}
+{% endblock %}

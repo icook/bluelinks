@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body_w_flash %}
+<h1>Internal Server Error</h1>
+<p>Seems we've goofed up, sorry about that. Details about this error have been
+  logged, but feel free to let us know what happened at
+  <a href="/c/bugs">/c/bugs</a> or on our
+  <a href="https://github.com/icook/bluelinks/issues">issue tracker</a></p>
+{% if g.sentry_event_id %}
+<p>The error identifier is <b>{{ g.sentry_event_id }}</b></p>
+{% endif %}
+<img src="{{ config['assets_address'] | safe }}/img/wizard-of-oz.jpg">
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body_w_flash %}
+<h1>404 Not Found ¯\_(ツ)_/¯</h1>
+<p>This page you were trying to go to doesn't exist, double check that the URL
+  is correct. <a href="/">Bluelinks home</a></p>
+{% if g.sentry_event_id %}
+<p>The error identifier is <b>{{ g.sentry_event_id }}</b></p>
+{% endif %}
+{% endblock %}
