@@ -12,6 +12,23 @@ from .application import security
 password_length = validators.Length(min=6, max=128, message='PASSWORD_INVALID_LENGTH')
 
 
+class Unique(object):
+    """ validator that checks field uniqueness """
+    def __init__(self, model, field, msg=None):
+        self.model = model
+        self.field = field
+        self.msg = msg
+
+    def __call__(self, form, field):
+        if field.object_data == field.data:
+            return
+        check = self.model.query.filter(self.field == field.data).first()
+        if check:
+            if not self.msg:
+                self.msg = u"Community '{}' exists already".format(field.data)
+            raise validators.ValidationError(self.msg)
+
+
 class EitherOr(object):
     """ Allows entry of one or the other """
     def __init__(self, fieldname, message=None):
@@ -120,6 +137,7 @@ class TextSubmissionForm(Form):
 class CreateCommunityForm(Form):
     name = field.TextField('Name', validators=[
         validators.Length(min=4, max=32),
-        validators.Regexp("^[a-zA-Z0-9-_]+$")
+        validators.Regexp("^[a-zA-Z0-9-_]+$"),
+        Unique(m.Community, m.Community.name)
     ])
     submit = field.SubmitField("Create")
