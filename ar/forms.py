@@ -139,5 +139,5 @@ class CreateCommunityForm(Form):
         validators.Length(min=4, max=32),
         validators.Regexp("^[a-zA-Z0-9-_]+$"),
         Unique(m.Community, m.Community.name)
-    ])
+    ], id='comm_name')
     submit = field.SubmitField("Create")

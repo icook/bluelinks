@@ -221,4 +221,40 @@ $(function () {
     }
 
   };
+
+  $("#comm_name").bind("blur", function() {
+    var _this = $(this);
+    var _fcf = $("#comm_name_fcf");
+    var url = "/api/check_community/" + _this.val();
+    _this.parent("div").find("div.help-block").hide().find("ul").find("li").remove();
+
+    if (_this.val() === '') { return }
+    if (_this.val().length < 4 || _this.val().length > 32) {
+      _this.parent("div").find("div.help-block").show().find("ul").append("<li>Name must be 4-32 characters long</li>");
+      _this.parent("div").addClass('has-error');
+      return
+    }
+
+    var success = function(data) {
+      if (data.available) {
+        _this.parent("div").find("div.help-block").hide().find("ul").find("li").remove();
+        _this.parent("div").removeClass('has-error');
+        _this.parent("div").addClass('has-success');
+        _fcf.removeClass("fa-spinner fa-spin fa-ban");
+        _fcf.addClass("fa-check");
+      } else {
+        _this.parent("div").find("div.help-block").show().find("ul").append("<li>That name is not available</li>");
+        _this.parent("div").removeClass('has-success');
+        _this.parent("div").addClass('has-error');
+        _fcf.removeClass("fa-spinner fa-spin fa-check");
+        _fcf.addClass("fa-ban");
+      }
+    };
+    var fail = function(data) {
+      _this.parent("div").find("div.help-block").show().find("ul").append("<li>Failed to connect to server!</li>");
+    };
+
+    _fcf.show();
+    helpers.ajax_check(url, success, fail);
+  });
 });

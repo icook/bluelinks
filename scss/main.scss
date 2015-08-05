@@ -265,5 +265,9 @@ background-color: #f3f3f3;
   min-height: 100px;
 }
 
+div.has-feedback span.form-control-feedback {
+  top: 40px;
+}
+
 @import "bootstrap";
 @import "font-awesome";
