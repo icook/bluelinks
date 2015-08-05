@@ -45,3 +45,13 @@ def comment(parent=None):
     redis_store.vote_cmd(keys=(), args=("c", comment.id, current_user.id, 1,
                                         "pc{}".format(comment.post_id)))
     return jsonify(success=True, comment_id=comment.id)
+
+
+@api_bp.route("/check_community/<name>")
+@login_required
+def check_community_availability(name):
+    comm = Community.query.filter_by(name=name).first()
+    if comm:
+        return jsonify({'available': False})
+    else:
+        return jsonify({'available': True})
