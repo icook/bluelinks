@@ -17,7 +17,7 @@
       {% for comm in user.comments %}
         {{ make_comment(comm, current_user) }}
       {% endfor %}
-    {% elif tab == 'submitted' and user.posts %}
+    {% elif (tab == 'submitted' or not tab) and user.posts %}
       {% for post in user.posts %}
         {{ make_post(post, current_user, false) }}
       {% endfor %}
