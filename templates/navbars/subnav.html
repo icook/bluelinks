@@ -28,11 +28,11 @@
 {#      <li data-toggle="tooltip" data-placement="bottom" title="Account">#}
 {#        <a href="/account"><i class="fa-nav fa fa-gear fa-2"></i></a>#}
 {#      </li>#}
-{#      <li data-toggle="tooltip" data-placement="bottom" title="Profile">#}
-{#        <a href="/u/{{ current_user.username }}">#}
-{#          <i class="fa-nav fa fa-user fa-2"></i>#}
-{#        </a>#}
-{#      </li>#}
+      <li data-toggle="tooltip" data-placement="bottom" title="Profile">
+        <a href="/u/{{ current_user.username }}">
+          <i class="fa-nav fa fa-user fa-2"></i>
+        </a>
+      </li>
     {% else %}
       <li><a href="/login">Login</a></li>
       <li><a href="/register">Register</a></li>
