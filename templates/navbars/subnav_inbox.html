@@ -1,0 +1,19 @@
+{% extends "navbars/subnav.html" %}
+
+{% block subnav_tabs %}
+  {% set tab = request.args.get('tab') %}
+  <ul class="nav nav-tabs col-xs-5 float-left" role="tablist">
+    <li role="presentation" {% if tab == 'inbox' or not tab %}class="active"{% endif %}>
+      <a href="{{ request.path }}?tab=inbox" aria-controls="tab_inbox"
+         role="tab">
+        <i class="fa fa-inbox"></i> Inbox
+      </a>
+    </li>
+    <li role="presentation" {% if tab == 'sent' %}class="active"{% endif %}>
+      <a href="{{ request.path }}?tab=sent"
+         aria-controls="sent" role="tab">
+        <i class="fa fa-paper-plane-o"></i> Sent
+      </a>
+    </li>
+  </ul>
+{% endblock subnav_tabs %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_macros.html" import render_form, make_comment, make_post %}
+{% set active_page = "inbox" %}
+{% set page_title = "Inbox" %}
+
+{% block subnav %}
+  {% include "navbars/subnav_inbox.html" %}
+{% endblock subnav %}
+
+{% block body_w_flash %}
+{% set tab = request.args.get('tab') %}
+<div class="row">
+  <div class="col-md-12">
+    {% if (tab == 'inbox' or not tab) and messages %}
+      {% for msg in messages %}
+        {{ make_comment(msg, current_user) }}
+      {% endfor %}
+    {% elif tab == 'sent' and messages %}
+      {% for msg in messages %}
+        {{ make_comment(msg, current_user) }}
+      {% endfor %}
+    {% else %}
+      <h3>Hmm.... Nothing here...</h3>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

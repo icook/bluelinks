@@ -240,6 +240,12 @@ def my_communities():
                            communities=current_user.subscriptions)
 
 
+@main.route("/inbox", methods=["POST", "GET"])
+@login_required
+def inbox():
+    return render_template('inbox.html')
+
+
 @main.route("/logout")
 @login_required
 def logout():
