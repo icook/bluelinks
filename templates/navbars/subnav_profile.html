@@ -2,14 +2,18 @@
 
 {% block subnav_tabs %}
   {% set tab = request.args.get('tab') %}
-  <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
+  <ul class="nav nav-tabs col-xs-5 float-left" role="tablist">
     <li role="presentation" {% if tab == 'submitted' or not tab %}class="active"{% endif %}>
       <a href="{{ request.path }}?tab=submitted" aria-controls="tab_submitted"
-         role="tab">Submitted</a>
+         role="tab">
+        <i class="fa fa-pencil"></i> Submitted
+      </a>
     </li>
     <li role="presentation" {% if tab == 'comments' %}class="active"{% endif %}>
       <a href="{{ request.path }}?tab=comments"
-         aria-controls="tab_comments" role="tab">Comments</a>
+         aria-controls="tab_comments" role="tab">
+        <i class="fa fa-comment-o"></i> Comments
+      </a>
     </li>
   </ul>
 {% endblock subnav_tabs %}
