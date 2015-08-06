@@ -20,6 +20,8 @@ from werkzeug.local import LocalProxy
 
 import ar.filters as filters
 import pyximport
+from ar.renderers import LinkRenderer
+
 pyximport.install()
 
 
@@ -33,7 +35,8 @@ mail = Mail()
 admin = Admin()
 redis_store = FlaskRedis()
 celery = Celery()
-md = Misaka(no_html=True, no_images=True,
+md_renderer = LinkRenderer()
+md = Misaka(renderer=md_renderer, no_html=True, no_images=True,
             autolink=True, fenced_code=True, space_headers=True,
             no_intra_emphasis=True, strikethrough=True, superscript=True)
 
