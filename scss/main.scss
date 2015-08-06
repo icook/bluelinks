@@ -19,17 +19,12 @@ html, body {
 
 .bodypanel {
   min-height: 100% !important;
-  margin-bottom: $footer-height;
   background-color: #FFFFFF;
 }
 
 #footer-wrapper {
   overflow: hidden;
-  width: 100%;
   height: $footer-height;
-  position: absolute;
-  bottom: -100;
-  left: 0;
   padding-top: 15px;
 }
 
@@ -184,11 +179,8 @@ ul.navbar-user {
 }
 
 .sidebar {
-  //border-left: 1px solid #999;
-  //border-bottom: 1px solid #999;
   background-color: #EEE;
   padding: 20px 0;
-  height: 100%;
 }
 
 .body-wrapper {

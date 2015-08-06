@@ -35,30 +35,34 @@
       {% endblock %}
     </div>
     <div id="content-wrapper">
-      <!-- Main panel content -->
-      {% block body %}
-        <div class="col-sm-9 bodypanel">
-          <div class="body-wrapper">
-            {% include "_flash.html" %}
-            {% block body_w_flash %}
-            {% endblock %}
+      <div class="row">
+        <!-- Main panel content -->
+        {% block body %}
+          <div class="col-sm-9 bodypanel">
+            <div class="body-wrapper">
+              {% include "_flash.html" %}
+              {% block body_w_flash %}
+              {% endblock %}
+            </div>
           </div>
-          <!-- Footer content -->
-          <div id="footer-wrapper">
-            {% block footer %}
-              {% include "navbars/footer.html" %}
+        {% endblock %}
+        <!-- Side panel content -->
+        {% block sidebar %}
+          <div class="col-sm-3 sidebar">
+            {% block sidebar_content %}
             {% endblock %}
+            {% include "navbars/sidebar.html" %}
           </div>
-        </div>
-      {% endblock %}
-      <!-- Side panel content -->
-      {% block sidebar %}
-        <div class="col-sm-3 sidebar">
-          {% block sidebar_content %}
+        {% endblock %}
+      </div>
+      <div class="row">
+        <!-- Footer content -->
+        <div class="col-sm-9" id="footer-wrapper">
+          {% block footer %}
+            {% include "navbars/footer.html" %}
           {% endblock %}
-          {% include "navbars/sidebar.html" %}
         </div>
-      {% endblock %}
+      </div>
     </div>
     <script>
       $(function () {
