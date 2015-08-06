@@ -33,7 +33,9 @@ mail = Mail()
 admin = Admin()
 redis_store = FlaskRedis()
 celery = Celery()
-md = Misaka(no_html=True, no_images=True)
+md = Misaka(no_html=True, no_images=True,
+            autolink=True, fenced_code=True, space_headers=True,
+            no_intra_emphasis=True, strikethrough=True, superscript=True)
 
 
 def create_app(config='/config.yml', log_level='INFO'):
