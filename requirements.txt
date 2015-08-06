@@ -31,7 +31,7 @@ webassets==0.10.1
 ago==0.0.6
 Cython==0.22.1
 misaka==1.0.2
-Flask-Misaka==0.3.0
+git+https://github.com/singingwolfboy/flask-misaka.git@bc4f3e5878a7fcdaa9d5a27be7ad29d02456e350#egg=Flask-Misaka
 beautifulsoup4==4.4.0
 requests==2.7.0
 Flask-Celery-Helper==1.1.0
