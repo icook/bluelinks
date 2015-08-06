@@ -5,11 +5,15 @@
   <ul class="nav nav-tabs hidden-xs col-xs-5 float-left" role="tablist">
     <li role="presentation" {% if sort == 'hot' or not sort %}class="active"{% endif %}>
       <a href="{{ request.path }}?sort=hot" aria-controls="sort_hot"
-         role="tab">Hot</a>
+         role="tab">
+        <i class="fa fa-fire"></i> Hot
+      </a>
     </li>
     <li role="presentation" {% if sort == 'top' %}class="active"{% endif %}>
       <a href="http://{{ request.host + request.path }}?sort=top"
-         aria-controls="sort_top" role="tab">Top</a>
+         aria-controls="sort_top" role="tab">
+        <i class="fa fa-thumbs-o-up"></i> Top
+      </a>
     </li>
   </ul>
 {% endblock subnav_tabs %}
