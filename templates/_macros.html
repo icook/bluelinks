@@ -150,8 +150,8 @@
     {% endif %}
     <div class="media-body">
       <!-- Title -->
-      <h4 class="media-heading">
-        <a href="{{ post.display_url }}">{{ post.title }}</a>
+      <h4 class="media-heading {% if post.sticky == True %}sticky{% endif %}">
+        <a href="{{ post.display_url }}" >{{ post.title }}</a>
       </h4>
       <!-- Submitted -->
       <small class="muted">Submitted {{ post.created_at | human_date_utc }} by

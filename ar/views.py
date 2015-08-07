@@ -174,7 +174,10 @@ def community(name):
     post_ids.reverse()
     post_ids = [int(pid) for pid in post_ids]
     posts = {p.id: p for p in Post.query.filter(Post.id.in_(post_ids))}
-    posts = [posts[pid] for pid in post_ids]
+    posts = [posts[pid] for pid in post_ids if posts[pid].sticky is False]
+    # Add in sticky posts if its the first page
+    if page == 0:
+        posts = Post.query.filter_by(community_name=name, sticky=True).all() + posts
     comm = Community.query.filter_by(name=name).first()
     if request.method == "POST":
         if comm in current_user.subscriptions and request.form['toggle'] == 'Unsubscribe':

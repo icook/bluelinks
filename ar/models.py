@@ -76,6 +76,7 @@ class Post(base):
     text = db.Column(db.Unicode)
     title = db.Column(db.Unicode, nullable=False)
     thumbnail_path = db.Column(db.String)
+    sticky = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     community_name = db.Column(db.ForeignKey('community.name'))
