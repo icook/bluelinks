@@ -116,7 +116,9 @@ def create_community():
             abort(500)
 
         return redirect(url_for('main.community', name=comm.name))
-    return render_template('submission.html', form=form)
+
+    form_header = "Create a Community"
+    return render_template('submission.html', form=form, title=form_header)
 
 
 @main.route("/submit/<name>/link", methods=["POST", "GET"])
