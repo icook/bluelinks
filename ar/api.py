@@ -40,7 +40,7 @@ def comment(parent=None):
         current_app.logger.info("Couldn't create path {}".format(curr_path))
         db.session.rollback()
         return jsonify(success=False)
-    comment.path = "{}{}".format(parent.path, curr_path) if parent else curr_path
+    comment.path = "{}/{}".format(parent.path, curr_path) if parent else curr_path
     db.session.commit()
     redis_store.vote_cmd(keys=(), args=("c", comment.id, current_user.id, 1,
                                         "pc{}".format(comment.post_id)))

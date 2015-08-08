@@ -64,7 +64,8 @@ def post(name, post_id):
 @main.route("/c/<name>/comments/<post_id>/<comment_id>/")
 def permalink(name, post_id, comment_id):
     post = Post.query.filter_by(id=post_id).one()
-    subcomments = Comment.query.filter_by(id=comment_id).one().subcomments
+    comment = Comment.query.filter_by(id=comment_id).one()
+    comments = [comment] + comment.subcomments
 
     scores = {int(a): b for a, b in
               redis_store.zrange("pc{}".format(post.id), 0, -1, withscores=True)}
@@ -73,7 +74,7 @@ def permalink(name, post_id, comment_id):
 
     def sort_comments(obj):
         return obj.score_val
-    for comment in subcomments:
+    for comment in comments:
 
         if last_obj is None:
             nested.append(comment)
