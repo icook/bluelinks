@@ -257,4 +257,21 @@ $(function () {
     _fcf.show();
     helpers.ajax_check(url, success, fail);
   });
+
+
+  // init collapsers
+  $('.collapsible').collapse();
+  $('.comment').collapse();
+
+  var toggle = function(html) {
+    if (html == '[-]') { return "[+]" } else { return "[-]" }
+  };
+
+  $(".collapser").bind("click", function(e) {
+    e.stopPropagation();
+    $(this).closest(".comment").children(".comment").collapse('toggle');
+    $(this).closest(".media").find(".collapsible").collapse('toggle');
+    $(this).html(toggle($(this).html()))
+  });
+
 });

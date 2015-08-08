@@ -180,11 +180,16 @@
 
 {% macro make_comment(comment, current_user, odd, sort_comments, loop) %}
   <div class="media">
-    <div class="media-left media-top text-center" style="padding-right: 10px;">
-      {{ make_arrows(comment, current_user) }}
+    <div class="media-left media-top text-center" style="padding-right: 10px;min-width: 23px;">
+      <div class="collapsible collapse">
+        {{ make_arrows(comment, current_user) }}
+      </div>
     </div>
     <div class="media-body">
       <h4 id="comment-{{ comment.id }}" class="media-heading">
+        <a class="collapser" role="button" id="collapse-{{ comment.id }}"
+           href="javascript:void(0)" aria-expanded="true"
+           aria-controls="collapse-comment">[-]</a>
         <a href="/u/{{ comment.username }}"
            {% if comment.post.username == comment.username %}
            class="label label-primary label-as-badge"
@@ -192,11 +197,11 @@
         <small class="text-muted">{{ comment.created_at | human_date_utc }}</small>
       </h4>
 
-      <div class="comment-text">
+      <div class="comment-text collapsible">
         {{ comment.text | markdown }}
       </div>
 
-      <div class="action-nav">
+      <div class="action-nav collapsible">
 {#        <a href="{{ url_for('main.permalink', name=comment.post.community_name, post_id=comment.post.id, comment_id=comment.id) }}">permalink</a>#}
         <a class="reply-link" data-parent="{{ comment.id }}">reply</a>
         <div class="comment-reply"></div>
