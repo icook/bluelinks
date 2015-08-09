@@ -153,27 +153,48 @@
       <h4 class="media-heading">
         <a href="{{ post.display_url }}">{{ post.title }}</a>
       </h4>
-      <!-- Submitted -->
-      <small class="muted">Submitted {{ post.created_at | human_date_utc }} by
-        <a href="/u/{{ post.username }}">{{ post.username }}</a>
-        {% if not in_community %}
-        to <a href="/c/{{ post.community_name }}">/c/{{ post.community_name }}</a>
+
+      <!-- Sub-media -->
+      <div class="media" style="margin:0;">
+        {% if post.text and not show_text %}
+        <div class="media-left media-top text-center" style="padding-right: 0px;">
+          <a class="btn btn-xs" href="#collapse-{{ post.id }}" role="button"
+             data-toggle="collapse" aria-expanded="false"
+             aria-controls="collapse-post">
+            <i class="fa fa-plus-square-o fa-2x"></i> </a>
+        </div>
         {% endif %}
-      </small>
-      <!-- Text -->
-      {% if post.text and show_text %}
-        <div class="well well-sm">
-          <div class="post-text">
-            {{ post.text | markdown }}
+        <!-- Submitted -->
+        <div class="media-body">
+          <small class="muted">Submitted {{ post.created_at | human_date_utc }} by
+            <a href="/u/{{ post.username }}">{{ post.username }}</a>
+            {% if not in_community %}
+            to <a href="/c/{{ post.community_name }}">/c/{{ post.community_name }}</a>
+            {% endif %}
+          </small>
+
+          <!-- Text -->
+          {% if post.text %}
+            <div class="collapse-wrapper collapse {% if show_text %}in{% endif %}"
+                 id="collapse-{{ post.id }}">
+              <div class="well well-sm" style="margin-bottom:0;">
+                <div class="post-text">
+                  {{ post.text | markdown }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          <!-- Actions -->
+          <div class="action-nav">
+
+            <a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a>
+    {#        - <a href="#">Report</a>#}
+    {#        - <a href="#">Save</a>#}
           </div>
         </div>
-      {% endif %}
-      <!-- Actions -->
-      <div class="action-nav">
-        <a href="{{ post.comments_url }}">{{ post.comment_count }} comments</a>
-{#        - <a href="#">Report</a>#}
-{#        - <a href="#">Save</a>#}
-      </div>
+      </div><!-- /.media-body -->
+
+
     </div><!-- /.media-body -->
   </div>
 {%- endmacro %}
