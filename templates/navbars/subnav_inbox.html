@@ -4,9 +4,9 @@
   {% set tab = request.args.get('tab') %}
   <ul class="nav nav-tabs col-xs-5 float-left" role="tablist">
     <li role="presentation" {% if tab == 'inbox' or not tab %}class="active"{% endif %}>
-      <a href="{{ request.path }}?tab=inbox" aria-controls="tab_inbox"
-         role="tab">
-        <i class="fa fa-inbox"></i> Inbox
+      <a href="{{ request.path }}?tab=inbox" aria-controls="tab_inbox" role="tab">
+        <i class="fa fa-inbox"></i>
+        Inbox {% if unread %}<span class="unread">({{ unread }})</span>{% endif %}
       </a>
     </li>
     <li role="presentation" {% if tab == 'sent' %}class="active"{% endif %}>

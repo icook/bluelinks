@@ -199,3 +199,28 @@
     </div>
   </div>
 {% endmacro %}
+
+{% macro make_message(message, current_user) %}
+  <div class="media">
+    <div class="media-body">
+      <h4 id="message-{{ message.id }}" class="media-heading">
+        {{ message.subject | markdown }}
+        <small class="text-muted">
+          sent by
+          <a href="/u/{{ message.from_username }}">
+            {{ message.from_username }}
+          </a>
+          {{ message.created_at | human_date_utc }}</small>
+      </h4>
+
+      <div class="message-text">
+        {{ message.text | markdown }}
+      </div>
+
+      <div class="action-nav">
+        <a class="reply-link" data-parent="{{ message.id }}">reply</a>
+        <div class="comment-reply"></div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}

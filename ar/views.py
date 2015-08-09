@@ -7,7 +7,7 @@ from flask.ext.login import login_required, logout_user, login_user, current_use
 
 from .application import root, db, lm, redis_store
 from .forms import TextSubmissionForm, LinkSubmissionForm, CreateCommunityForm
-from .models import User, Community, Post, Comment
+from .models import User, Community, Post, Comment, Message
 from .tasks import thumbnail_link
 
 
@@ -243,7 +243,9 @@ def my_communities():
 @main.route("/inbox", methods=["POST", "GET"])
 @login_required
 def inbox():
-    return render_template('inbox.html')
+    messages = Message.query.filter_by(to_username=current_user.username).all()
+    unread = sum([1 for msg in messages if msg.read is False])
+    return render_template('inbox.html', messages=messages, unread=unread)
 
 
 @main.route("/logout")

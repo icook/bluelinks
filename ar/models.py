@@ -57,6 +57,10 @@ class User(base, UserMixin):
     def __str__(self):
         return "/u/{}".format(self.username)
 
+    @property
+    def message_count(self):
+        return self.messages.count()
+
 
 class Community(base):
     name = db.Column(db.String, primary_key=True)
@@ -150,3 +154,22 @@ class Comment(base):
     @property
     def score(self):
         return int(redis_store.zscore("pc{}".format(self.post_id), self.id) or 0)
+
+
+class Message(base):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Unicode)
+    subject = db.Column(db.Unicode, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    read = db.Column(db.Boolean, default=False)
+
+    # Sending user
+    from_username = db.Column(db.ForeignKey('user.username'))
+    from_user = db.relationship('User', foreign_keys=[from_username], backref='sent_messages')
+
+    # Receiving user
+    to_username = db.Column(db.ForeignKey('user.username'))
+    to_user = db.relationship('User', foreign_keys=[to_username], backref='messages')
+
+    # marked for deletion. Keep archived for records
+    deleted = db.Column(db.Boolean, default=False)

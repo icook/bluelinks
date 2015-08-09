@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import render_form, make_comment, make_post %}
+{% from "_macros.html" import render_form, make_message %}
 {% set active_page = "inbox" %}
 {% set page_title = "Inbox" %}
 
@@ -13,11 +13,11 @@
   <div class="col-md-12">
     {% if (tab == 'inbox' or not tab) and messages %}
       {% for msg in messages %}
-        {{ make_comment(msg, current_user) }}
+        {{ make_message(msg, current_user) }}
       {% endfor %}
     {% elif tab == 'sent' and messages %}
       {% for msg in messages %}
-        {{ make_comment(msg, current_user) }}
+        {{ make_message(msg, current_user) }}
       {% endfor %}
     {% else %}
       <h3>Hmm.... Nothing here...</h3>
